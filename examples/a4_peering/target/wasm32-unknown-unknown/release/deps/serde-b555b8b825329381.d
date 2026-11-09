@@ -1,0 +1,14 @@
+/home/jim/cs_356/assignment4/examples/a4_peering/target/wasm32-unknown-unknown/release/deps/serde-b555b8b825329381.d: /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs /home/jim/cs_356/assignment4/examples/a4_peering/target/wasm32-unknown-unknown/release/build/serde-eb9430b75e3c520d/out/private.rs
+
+/home/jim/cs_356/assignment4/examples/a4_peering/target/wasm32-unknown-unknown/release/deps/libserde-b555b8b825329381.rlib: /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs /home/jim/cs_356/assignment4/examples/a4_peering/target/wasm32-unknown-unknown/release/build/serde-eb9430b75e3c520d/out/private.rs
+
+/home/jim/cs_356/assignment4/examples/a4_peering/target/wasm32-unknown-unknown/release/deps/libserde-b555b8b825329381.rmeta: /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs /home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs /home/jim/cs_356/assignment4/examples/a4_peering/target/wasm32-unknown-unknown/release/build/serde-eb9430b75e3c520d/out/private.rs
+
+/home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs:
+/home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs:
+/home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs:
+/home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs:
+/home/jim/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs:
+/home/jim/cs_356/assignment4/examples/a4_peering/target/wasm32-unknown-unknown/release/build/serde-eb9430b75e3c520d/out/private.rs:
+
+# env-dep:OUT_DIR=/home/jim/cs_356/assignment4/examples/a4_peering/target/wasm32-unknown-unknown/release/build/serde-eb9430b75e3c520d/out

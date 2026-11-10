@@ -26,17 +26,27 @@ mod router;
 use std::collections::BTreeMap;
 use switch_program_sdk::*;
 
-const LOG_INTERVAL_NS: u64 = 1_000_000_000;
+const LOG_INTERVAL_NS: u64 = 200_000_000;
+// Split a conservative share of the site's 64 KiB per-world log among all
+// switches. The remainder covers the site's timestamp/switch line prefixes.
+const WORLD_LOG_PAYLOAD_BUDGET: usize = 56_000;
 
 pub struct Starter {
     startup_log: Vec<String>,
     startup_logged: bool,
+    runtime_log_bytes: usize,
+    runtime_log_budget: usize,
 }
 
 /// Condense the route table to one line per destination AS and exit. This
 /// makes the site's per-world log useful without spending its 64 KiB budget
 /// on one line for every address block at every switch.
-fn routing_snapshot(info: &wire::A4InfoW, me: u32, routes: &[(u32, u8, u16)]) -> Vec<String> {
+fn routing_snapshot(
+    input: &InitInput,
+    info: &wire::A4InfoW,
+    routes: &[(u32, u8, u16)],
+) -> Vec<String> {
+    let me = input.switch_id;
     let mut lines = vec![format!(
         "a4_round1 as={} switch={} installed_routes={} offers={} buffer_bytes={} failover=off",
         info.as_id,
@@ -63,6 +73,10 @@ fn routing_snapshot(info: &wire::A4InfoW, me: u32, routes: &[(u32, u8, u16)]) ->
             "port={} border_to_as={} rel={}",
             border.port, border.peer_as, border.rel
         ));
+    }
+    for (i, port) in input.local_ports.iter().enumerate() {
+        let bps = input.port_capacity_bps.get(i).copied().unwrap_or(0);
+        lines.push(format!("port={} capacity_bps={}", port, bps));
     }
     let mut grouped: BTreeMap<(u32, u32, u8, u16), u32> = BTreeMap::new();
     for &(addr, len, port) in routes {
@@ -97,7 +111,78 @@ fn routing_snapshot(info: &wire::A4InfoW, me: u32, routes: &[(u32, u8, u16)]) ->
             dest_as, via_as, rel, port, count
         ));
     }
-    lines
+    // The grouped view above is cheap to scan. These lines retain exact
+    // prefixes and every offered exit so we can investigate unexpected paths.
+    for &(addr, len, out_port) in routes {
+        if len == 0 || info.own.iter().any(|p| p.addr == addr && p.len == len) {
+            continue;
+        }
+        if let Some(offer) = info.routes.iter().find(|r| r.addr == addr && r.len == len) {
+            let via_as = info
+                .borders
+                .iter()
+                .find(|b| b.switch == offer.switch && b.port == offer.port)
+                .map(|b| b.peer_as)
+                .unwrap_or(0);
+            lines.push(format!(
+                "selected={}/{} out_port={} via_as={} as_path={:?}",
+                ip(addr),
+                len,
+                out_port,
+                via_as,
+                offer.as_path
+            ));
+        }
+    }
+    let mut offered: BTreeMap<(u32, u32, u8, u32, u16, u32), u32> = BTreeMap::new();
+    for route in &info.routes {
+        let dest_as = route.as_path.last().copied().unwrap_or(0);
+        let via_as = info
+            .borders
+            .iter()
+            .find(|b| b.switch == route.switch && b.port == route.port)
+            .map(|b| b.peer_as)
+            .unwrap_or(0);
+        *offered
+            .entry((
+                dest_as,
+                via_as,
+                route.rel,
+                route.switch,
+                route.port,
+                route.med,
+            ))
+            .or_default() += 1;
+    }
+    for ((dest_as, via_as, rel, exit_switch, exit_port, med), count) in offered {
+        lines.push(format!(
+            "offered_to_as={} via_as={} rel={} exit={}:{} med={} prefixes={}",
+            dest_as, via_as, rel, exit_switch, exit_port, med, count
+        ));
+    }
+    let per_switch = WORLD_LOG_PAYLOAD_BUDGET / info.switches.len().max(1);
+    cap_log(lines, per_switch * 3 / 5)
+}
+
+fn cap_log(lines: Vec<String>, budget: usize) -> Vec<String> {
+    let mut kept = Vec::new();
+    let mut used = 0;
+    let mut omitted = 0;
+    for line in lines {
+        if used + line.len() + 64 <= budget {
+            used += line.len();
+            kept.push(line);
+        } else {
+            omitted += 1;
+        }
+    }
+    if omitted > 0 {
+        kept.push(format!(
+            "startup_lines_omitted={} budget_bytes={}",
+            omitted, budget
+        ));
+    }
+    kept
 }
 
 fn ip(addr: u32) -> String {
@@ -126,6 +211,8 @@ impl SwitchProgram for Starter {
             Starter {
                 startup_log: vec![],
                 startup_logged: false,
+                runtime_log_bytes: 0,
+                runtime_log_budget: 0,
             },
             router::setup(&[], false),
         )
@@ -136,11 +223,14 @@ impl SwitchProgram for Starter {
         };
         let no_failed_links = Default::default();
         let routes = router::table(info, input.switch_id, &no_failed_links, rank);
-        let startup_log = routing_snapshot(info, input.switch_id, &routes);
+        let startup_log = routing_snapshot(&input, info, &routes);
+        let per_switch = WORLD_LOG_PAYLOAD_BUDGET / info.switches.len().max(1);
         (
             Starter {
                 startup_log,
                 startup_logged: false,
+                runtime_log_bytes: 0,
+                runtime_log_budget: per_switch - per_switch * 3 / 5,
             },
             router::setup(&routes, false),
         )
@@ -157,15 +247,21 @@ impl SwitchProgram for Starter {
             self.startup_logged = true;
         } else {
             let total: u64 = ev.port_drops.iter().map(|d| d.dropped as u64).sum();
+            let policy: u64 = ev.port_drops.iter().map(|d| d.policy as u64).sum();
             let ports = ev
                 .port_drops
                 .iter()
-                .map(|d| format!("{}:{}", d.port, d.dropped))
+                .map(|d| format!("{}:{}:q{:?}", d.port, d.dropped, d.queues))
                 .collect::<Vec<_>>()
                 .join(",");
-            out.push(actions::log_write(
-                format!("egress_drops_last_s={} by_port=[{}]", total, ports).into_bytes(),
-            ));
+            let line = format!(
+                "egress_drops_last_200ms={} policy={} by_port=[{}]",
+                total, policy, ports
+            );
+            if self.runtime_log_bytes + line.len() <= self.runtime_log_budget {
+                self.runtime_log_bytes += line.len();
+                out.push(actions::log_write(line.into_bytes()));
+            }
         }
         out.push(actions::schedule_timer(LOG_INTERVAL_NS));
         out

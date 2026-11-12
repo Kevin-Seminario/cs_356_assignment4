@@ -1,0 +1,582 @@
+0 231 a4_round1 as=23 switch=231 installed_routes=37 offers=34 buffer_bytes=12500 failover=off
+0 231 port=0 internal_to_switch=233
+0 231 port=1 internal_to_switch=232
+0 231 port=2 border_to_as=100 rel=5
+0 231 port=3 border_to_as=17 rel=2
+0 231 port=4 border_to_as=18 rel=2
+0 231 port=5 border_to_as=19 rel=2
+0 231 port=6 border_to_as=20 rel=2
+0 231 port=7 border_to_as=21 rel=2
+0 231 port=8 border_to_as=22 rel=2
+0 231 port=9 border_to_as=24 rel=2
+0 231 port=10 border_to_as=6 rel=2
+0 231 port=0 capacity_bps=100000000
+0 231 port=1 capacity_bps=10000000
+0 231 port=2 capacity_bps=4000000
+0 231 port=3 capacity_bps=20000000
+0 231 port=4 capacity_bps=20000000
+0 231 port=5 capacity_bps=20000000
+0 231 port=6 capacity_bps=20000000
+0 231 port=7 capacity_bps=20000000
+0 231 port=8 capacity_bps=20000000
+0 231 port=9 capacity_bps=20000000
+0 231 port=10 capacity_bps=20000000
+0 231 port=100 capacity_bps=10000000000
+0 231 own=10.23.1.0/24 class=1 out_port=0
+0 231 own=10.23.2.0/24 class=2 out_port=0
+0 231 own=10.23.3.0/24 class=3 out_port=0
+0 231 own=10.23.129.0/24 class=1 out_port=1
+0 231 own=10.23.130.0/24 class=2 out_port=1
+0 231 own=10.23.131.0/24 class=3 out_port=1
+0 231 own=10.23.17.0/24 class=1 out_port=0
+0 231 own=10.23.18.0/24 class=2 out_port=0
+0 231 own=10.23.19.0/24 class=3 out_port=0
+0 231 own=10.23.32.0/24 class=4 out_port=100
+0 231 default=0.0.0.0/0 out_port=2 trading=drop
+0 231 route_to_as=1 via_as=6 rel=2 out_port=10 prefixes=2
+0 231 route_to_as=3 via_as=6 rel=2 out_port=10 prefixes=2
+0 231 route_to_as=6 via_as=6 rel=2 out_port=10 prefixes=2
+0 231 route_to_as=17 via_as=17 rel=2 out_port=3 prefixes=2
+0 231 route_to_as=18 via_as=18 rel=2 out_port=4 prefixes=2
+0 231 route_to_as=19 via_as=19 rel=2 out_port=5 prefixes=2
+0 231 route_to_as=20 via_as=20 rel=2 out_port=6 prefixes=2
+0 231 route_to_as=21 via_as=21 rel=2 out_port=7 prefixes=2
+0 231 route_to_as=22 via_as=22 rel=2 out_port=8 prefixes=2
+0 231 route_to_as=24 via_as=24 rel=2 out_port=9 prefixes=2
+0 231 route_to_as=25 via_as=25 rel=2 out_port=1 prefixes=2
+0 231 route_to_as=26 via_as=26 rel=2 out_port=1 prefixes=2
+0 231 route_to_as=28 via_as=28 rel=2 out_port=1 prefixes=2
+0 231 selected=10.1.0.0/17 out_port=10 via_as=6 as_path=[6, 1]
+0 231 selected=10.1.128.0/17 out_port=10 via_as=6 as_path=[6, 1]
+0 231 selected=10.3.0.0/17 out_port=10 via_as=6 as_path=[6, 3]
+0 231 selected=10.3.128.0/17 out_port=10 via_as=6 as_path=[6, 3]
+0 231 selected=10.6.0.0/17 out_port=10 via_as=6 as_path=[6]
+0 231 selected=10.6.128.0/17 out_port=10 via_as=6 as_path=[6]
+0 231 selected=10.17.0.0/17 out_port=3 via_as=17 as_path=[17]
+0 231 selected=10.17.128.0/17 out_port=3 via_as=17 as_path=[17]
+0 231 selected=10.18.0.0/17 out_port=4 via_as=18 as_path=[18]
+0 231 selected=10.18.128.0/17 out_port=4 via_as=18 as_path=[18]
+0 231 selected=10.19.0.0/17 out_port=5 via_as=19 as_path=[19]
+0 231 selected=10.19.128.0/17 out_port=5 via_as=19 as_path=[19]
+0 231 selected=10.20.0.0/17 out_port=6 via_as=20 as_path=[20]
+0 231 selected=10.20.128.0/17 out_port=6 via_as=20 as_path=[20]
+0 231 selected=10.21.0.0/17 out_port=7 via_as=21 as_path=[21]
+0 231 selected=10.21.128.0/17 out_port=7 via_as=21 as_path=[21]
+0 231 selected=10.22.0.0/17 out_port=8 via_as=22 as_path=[22]
+0 231 selected=10.22.128.0/17 out_port=8 via_as=22 as_path=[22]
+0 231 selected=10.24.0.0/17 out_port=9 via_as=24 as_path=[24]
+0 231 selected=10.24.128.0/17 out_port=9 via_as=24 as_path=[24]
+0 231 selected=10.25.0.0/17 out_port=1 via_as=25 as_path=[25]
+0 231 selected=10.25.128.0/17 out_port=1 via_as=25 as_path=[25]
+0 231 selected=10.26.0.0/17 out_port=1 via_as=26 as_path=[26]
+0 231 selected=10.26.128.0/17 out_port=1 via_as=26 as_path=[26]
+0 231 selected=10.28.0.0/17 out_port=1 via_as=28 as_path=[28]
+0 231 selected=10.28.128.0/17 out_port=1 via_as=28 as_path=[28]
+0 231 offered_to_as=1 via_as=6 rel=2 exit=231:10 med=0 prefixes=2
+0 231 offered_to_as=3 via_as=6 rel=2 exit=231:10 med=0 prefixes=2
+0 231 offered_to_as=6 via_as=6 rel=2 exit=231:10 med=1 prefixes=1
+0 231 offered_to_as=6 via_as=6 rel=2 exit=231:10 med=2 prefixes=1
+0 231 offered_to_as=17 via_as=17 rel=2 exit=231:3 med=0 prefixes=1
+0 231 offered_to_as=17 via_as=17 rel=2 exit=231:3 med=1 prefixes=1
+0 231 offered_to_as=18 via_as=18 rel=2 exit=231:4 med=0 prefixes=1
+0 231 offered_to_as=18 via_as=18 rel=2 exit=231:4 med=1 prefixes=1
+0 231 offered_to_as=19 via_as=19 rel=2 exit=231:5 med=0 prefixes=1
+0 231 offered_to_as=19 via_as=19 rel=2 exit=231:5 med=1 prefixes=1
+0 231 offered_to_as=20 via_as=20 rel=2 exit=231:6 med=0 prefixes=1
+0 231 offered_to_as=20 via_as=20 rel=2 exit=231:6 med=1 prefixes=1
+0 231 offered_to_as=21 via_as=21 rel=2 exit=231:7 med=0 prefixes=1
+0 231 offered_to_as=21 via_as=21 rel=2 exit=231:7 med=1 prefixes=1
+0 231 offered_to_as=21 via_as=21 rel=2 exit=232:3 med=0 prefixes=1
+0 231 offered_to_as=21 via_as=21 rel=2 exit=232:3 med=1 prefixes=1
+0 231 offered_to_as=22 via_as=22 rel=2 exit=231:8 med=0 prefixes=1
+0 231 offered_to_as=22 via_as=22 rel=2 exit=231:8 med=1 prefixes=1
+0 231 offered_to_as=22 via_as=22 rel=2 exit=232:4 med=0 prefixes=1
+0 231 offered_to_as=22 via_as=22 rel=2 exit=232:4 med=1 prefixes=1
+0 231 offered_to_as=24 via_as=24 rel=2 exit=231:9 med=0 prefixes=1
+0 231 offered_to_as=24 via_as=24 rel=2 exit=231:9 med=1 prefixes=1
+0 231 offered_to_as=24 via_as=24 rel=2 exit=232:5 med=0 prefixes=1
+0 231 offered_to_as=24 via_as=24 rel=2 exit=232:5 med=1 prefixes=1
+0 231 offered_to_as=25 via_as=25 rel=2 exit=232:6 med=0 prefixes=1
+0 231 offered_to_as=25 via_as=25 rel=2 exit=232:6 med=1 prefixes=1
+0 231 offered_to_as=26 via_as=26 rel=2 exit=232:7 med=0 prefixes=1
+0 231 offered_to_as=26 via_as=26 rel=2 exit=232:7 med=1 prefixes=1
+0 231 offered_to_as=28 via_as=28 rel=2 exit=232:8 med=0 prefixes=1
+0 231 offered_to_as=28 via_as=28 rel=2 exit=232:8 med=1 prefixes=1
+0 231 offered_to_as=100 via_as=100 rel=5 exit=231:2 med=0 prefixes=1
+0 231 offered_to_as=100 via_as=100 rel=5 exit=232:2 med=0 prefixes=1
+0 232 a4_round1 as=23 switch=232 installed_routes=37 offers=34 buffer_bytes=12500 failover=off
+0 232 port=0 internal_to_switch=234
+0 232 port=1 internal_to_switch=231
+0 232 port=2 border_to_as=100 rel=5
+0 232 port=3 border_to_as=21 rel=2
+0 232 port=4 border_to_as=22 rel=2
+0 232 port=5 border_to_as=24 rel=2
+0 232 port=6 border_to_as=25 rel=2
+0 232 port=7 border_to_as=26 rel=2
+0 232 port=8 border_to_as=28 rel=2
+0 232 port=0 capacity_bps=100000000
+0 232 port=1 capacity_bps=10000000
+0 232 port=2 capacity_bps=4000000
+0 232 port=3 capacity_bps=20000000
+0 232 port=4 capacity_bps=20000000
+0 232 port=5 capacity_bps=20000000
+0 232 port=6 capacity_bps=20000000
+0 232 port=7 capacity_bps=20000000
+0 232 port=8 capacity_bps=20000000
+0 232 own=10.23.1.0/24 class=1 out_port=1
+0 232 own=10.23.2.0/24 class=2 out_port=1
+0 232 own=10.23.3.0/24 class=3 out_port=1
+0 232 own=10.23.129.0/24 class=1 out_port=0
+0 232 own=10.23.130.0/24 class=2 out_port=0
+0 232 own=10.23.131.0/24 class=3 out_port=0
+0 232 own=10.23.17.0/24 class=1 out_port=1
+0 232 own=10.23.18.0/24 class=2 out_port=1
+0 232 own=10.23.19.0/24 class=3 out_port=1
+0 232 own=10.23.32.0/24 class=4 out_port=1
+0 232 default=0.0.0.0/0 out_port=2 trading=drop
+0 232 route_to_as=1 via_as=6 rel=2 out_port=1 prefixes=2
+0 232 route_to_as=3 via_as=6 rel=2 out_port=1 prefixes=2
+0 232 route_to_as=6 via_as=6 rel=2 out_port=1 prefixes=2
+0 232 route_to_as=17 via_as=17 rel=2 out_port=1 prefixes=2
+0 232 route_to_as=18 via_as=18 rel=2 out_port=1 prefixes=2
+0 232 route_to_as=19 via_as=19 rel=2 out_port=1 prefixes=2
+0 232 route_to_as=20 via_as=20 rel=2 out_port=1 prefixes=2
+0 232 route_to_as=21 via_as=21 rel=2 out_port=3 prefixes=2
+0 232 route_to_as=22 via_as=22 rel=2 out_port=4 prefixes=2
+0 232 route_to_as=24 via_as=24 rel=2 out_port=5 prefixes=2
+0 232 route_to_as=25 via_as=25 rel=2 out_port=6 prefixes=2
+0 232 route_to_as=26 via_as=26 rel=2 out_port=7 prefixes=2
+0 232 route_to_as=28 via_as=28 rel=2 out_port=8 prefixes=2
+0 232 selected=10.1.0.0/17 out_port=1 via_as=6 as_path=[6, 1]
+0 232 selected=10.1.128.0/17 out_port=1 via_as=6 as_path=[6, 1]
+0 232 selected=10.3.0.0/17 out_port=1 via_as=6 as_path=[6, 3]
+0 232 selected=10.3.128.0/17 out_port=1 via_as=6 as_path=[6, 3]
+0 232 selected=10.6.0.0/17 out_port=1 via_as=6 as_path=[6]
+0 232 selected=10.6.128.0/17 out_port=1 via_as=6 as_path=[6]
+0 232 selected=10.17.0.0/17 out_port=1 via_as=17 as_path=[17]
+0 232 selected=10.17.128.0/17 out_port=1 via_as=17 as_path=[17]
+0 232 selected=10.18.0.0/17 out_port=1 via_as=18 as_path=[18]
+0 232 selected=10.18.128.0/17 out_port=1 via_as=18 as_path=[18]
+0 232 selected=10.19.0.0/17 out_port=1 via_as=19 as_path=[19]
+0 232 selected=10.19.128.0/17 out_port=1 via_as=19 as_path=[19]
+0 232 selected=10.20.0.0/17 out_port=1 via_as=20 as_path=[20]
+0 232 selected=10.20.128.0/17 out_port=1 via_as=20 as_path=[20]
+0 232 selected=10.21.0.0/17 out_port=3 via_as=21 as_path=[21]
+0 232 selected=10.21.128.0/17 out_port=3 via_as=21 as_path=[21]
+0 232 selected=10.22.0.0/17 out_port=4 via_as=22 as_path=[22]
+0 232 selected=10.22.128.0/17 out_port=4 via_as=22 as_path=[22]
+0 232 selected=10.24.0.0/17 out_port=5 via_as=24 as_path=[24]
+0 232 selected=10.24.128.0/17 out_port=5 via_as=24 as_path=[24]
+0 232 selected=10.25.0.0/17 out_port=6 via_as=25 as_path=[25]
+0 232 selected=10.25.128.0/17 out_port=6 via_as=25 as_path=[25]
+0 232 selected=10.26.0.0/17 out_port=7 via_as=26 as_path=[26]
+0 232 selected=10.26.128.0/17 out_port=7 via_as=26 as_path=[26]
+0 232 selected=10.28.0.0/17 out_port=8 via_as=28 as_path=[28]
+0 232 selected=10.28.128.0/17 out_port=8 via_as=28 as_path=[28]
+0 232 offered_to_as=1 via_as=6 rel=2 exit=231:10 med=0 prefixes=2
+0 232 offered_to_as=3 via_as=6 rel=2 exit=231:10 med=0 prefixes=2
+0 232 offered_to_as=6 via_as=6 rel=2 exit=231:10 med=1 prefixes=1
+0 232 offered_to_as=6 via_as=6 rel=2 exit=231:10 med=2 prefixes=1
+0 232 offered_to_as=17 via_as=17 rel=2 exit=231:3 med=0 prefixes=1
+0 232 offered_to_as=17 via_as=17 rel=2 exit=231:3 med=1 prefixes=1
+0 232 offered_to_as=18 via_as=18 rel=2 exit=231:4 med=0 prefixes=1
+0 232 offered_to_as=18 via_as=18 rel=2 exit=231:4 med=1 prefixes=1
+0 232 offered_to_as=19 via_as=19 rel=2 exit=231:5 med=0 prefixes=1
+0 232 offered_to_as=19 via_as=19 rel=2 exit=231:5 med=1 prefixes=1
+0 232 offered_to_as=20 via_as=20 rel=2 exit=231:6 med=0 prefixes=1
+0 232 offered_to_as=20 via_as=20 rel=2 exit=231:6 med=1 prefixes=1
+0 232 offered_to_as=21 via_as=21 rel=2 exit=231:7 med=0 prefixes=1
+0 232 offered_to_as=21 via_as=21 rel=2 exit=231:7 med=1 prefixes=1
+0 232 offered_to_as=21 via_as=21 rel=2 exit=232:3 med=0 prefixes=1
+0 232 offered_to_as=21 via_as=21 rel=2 exit=232:3 med=1 prefixes=1
+0 232 offered_to_as=22 via_as=22 rel=2 exit=231:8 med=0 prefixes=1
+0 232 offered_to_as=22 via_as=22 rel=2 exit=231:8 med=1 prefixes=1
+0 232 offered_to_as=22 via_as=22 rel=2 exit=232:4 med=0 prefixes=1
+0 232 offered_to_as=22 via_as=22 rel=2 exit=232:4 med=1 prefixes=1
+0 232 offered_to_as=24 via_as=24 rel=2 exit=231:9 med=0 prefixes=1
+0 232 offered_to_as=24 via_as=24 rel=2 exit=231:9 med=1 prefixes=1
+0 232 offered_to_as=24 via_as=24 rel=2 exit=232:5 med=0 prefixes=1
+0 232 offered_to_as=24 via_as=24 rel=2 exit=232:5 med=1 prefixes=1
+0 232 offered_to_as=25 via_as=25 rel=2 exit=232:6 med=0 prefixes=1
+0 232 offered_to_as=25 via_as=25 rel=2 exit=232:6 med=1 prefixes=1
+0 232 offered_to_as=26 via_as=26 rel=2 exit=232:7 med=0 prefixes=1
+0 232 offered_to_as=26 via_as=26 rel=2 exit=232:7 med=1 prefixes=1
+0 232 offered_to_as=28 via_as=28 rel=2 exit=232:8 med=0 prefixes=1
+0 232 offered_to_as=28 via_as=28 rel=2 exit=232:8 med=1 prefixes=1
+0 232 offered_to_as=100 via_as=100 rel=5 exit=231:2 med=0 prefixes=1
+0 232 offered_to_as=100 via_as=100 rel=5 exit=232:2 med=0 prefixes=1
+0 233 a4_round1 as=23 switch=233 installed_routes=37 offers=34 buffer_bytes=12500 failover=off
+0 233 port=0 internal_to_switch=231
+0 233 port=0 capacity_bps=100000000
+0 233 port=100 capacity_bps=10000000000
+0 233 port=101 capacity_bps=10000000000
+0 233 port=102 capacity_bps=10000000000
+0 233 port=103 capacity_bps=10000000000
+0 233 port=104 capacity_bps=10000000000
+0 233 port=105 capacity_bps=10000000000
+0 233 own=10.23.1.0/24 class=1 out_port=100
+0 233 own=10.23.2.0/24 class=2 out_port=101
+0 233 own=10.23.3.0/24 class=3 out_port=102
+0 233 own=10.23.129.0/24 class=1 out_port=0
+0 233 own=10.23.130.0/24 class=2 out_port=0
+0 233 own=10.23.131.0/24 class=3 out_port=0
+0 233 own=10.23.17.0/24 class=1 out_port=103
+0 233 own=10.23.18.0/24 class=2 out_port=104
+0 233 own=10.23.19.0/24 class=3 out_port=105
+0 233 own=10.23.32.0/24 class=4 out_port=0
+0 233 default=0.0.0.0/0 out_port=0 trading=drop
+0 233 route_to_as=1 via_as=6 rel=2 out_port=0 prefixes=2
+0 233 route_to_as=3 via_as=6 rel=2 out_port=0 prefixes=2
+0 233 route_to_as=6 via_as=6 rel=2 out_port=0 prefixes=2
+0 233 route_to_as=17 via_as=17 rel=2 out_port=0 prefixes=2
+0 233 route_to_as=18 via_as=18 rel=2 out_port=0 prefixes=2
+0 233 route_to_as=19 via_as=19 rel=2 out_port=0 prefixes=2
+0 233 route_to_as=20 via_as=20 rel=2 out_port=0 prefixes=2
+0 233 route_to_as=21 via_as=21 rel=2 out_port=0 prefixes=2
+0 233 route_to_as=22 via_as=22 rel=2 out_port=0 prefixes=2
+0 233 route_to_as=24 via_as=24 rel=2 out_port=0 prefixes=2
+0 233 route_to_as=25 via_as=25 rel=2 out_port=0 prefixes=2
+0 233 route_to_as=26 via_as=26 rel=2 out_port=0 prefixes=2
+0 233 route_to_as=28 via_as=28 rel=2 out_port=0 prefixes=2
+0 233 selected=10.1.0.0/17 out_port=0 via_as=6 as_path=[6, 1]
+0 233 selected=10.1.128.0/17 out_port=0 via_as=6 as_path=[6, 1]
+0 233 selected=10.3.0.0/17 out_port=0 via_as=6 as_path=[6, 3]
+0 233 selected=10.3.128.0/17 out_port=0 via_as=6 as_path=[6, 3]
+0 233 selected=10.6.0.0/17 out_port=0 via_as=6 as_path=[6]
+0 233 selected=10.6.128.0/17 out_port=0 via_as=6 as_path=[6]
+0 233 selected=10.17.0.0/17 out_port=0 via_as=17 as_path=[17]
+0 233 selected=10.17.128.0/17 out_port=0 via_as=17 as_path=[17]
+0 233 selected=10.18.0.0/17 out_port=0 via_as=18 as_path=[18]
+0 233 selected=10.18.128.0/17 out_port=0 via_as=18 as_path=[18]
+0 233 selected=10.19.0.0/17 out_port=0 via_as=19 as_path=[19]
+0 233 selected=10.19.128.0/17 out_port=0 via_as=19 as_path=[19]
+0 233 selected=10.20.0.0/17 out_port=0 via_as=20 as_path=[20]
+0 233 selected=10.20.128.0/17 out_port=0 via_as=20 as_path=[20]
+0 233 selected=10.21.0.0/17 out_port=0 via_as=21 as_path=[21]
+0 233 selected=10.21.128.0/17 out_port=0 via_as=21 as_path=[21]
+0 233 selected=10.22.0.0/17 out_port=0 via_as=22 as_path=[22]
+0 233 selected=10.22.128.0/17 out_port=0 via_as=22 as_path=[22]
+0 233 selected=10.24.0.0/17 out_port=0 via_as=24 as_path=[24]
+0 233 selected=10.24.128.0/17 out_port=0 via_as=24 as_path=[24]
+0 233 selected=10.25.0.0/17 out_port=0 via_as=25 as_path=[25]
+0 233 selected=10.25.128.0/17 out_port=0 via_as=25 as_path=[25]
+0 233 selected=10.26.0.0/17 out_port=0 via_as=26 as_path=[26]
+0 233 selected=10.26.128.0/17 out_port=0 via_as=26 as_path=[26]
+0 233 selected=10.28.0.0/17 out_port=0 via_as=28 as_path=[28]
+0 233 selected=10.28.128.0/17 out_port=0 via_as=28 as_path=[28]
+0 233 offered_to_as=1 via_as=6 rel=2 exit=231:10 med=0 prefixes=2
+0 233 offered_to_as=3 via_as=6 rel=2 exit=231:10 med=0 prefixes=2
+0 233 offered_to_as=6 via_as=6 rel=2 exit=231:10 med=1 prefixes=1
+0 233 offered_to_as=6 via_as=6 rel=2 exit=231:10 med=2 prefixes=1
+0 233 offered_to_as=17 via_as=17 rel=2 exit=231:3 med=0 prefixes=1
+0 233 offered_to_as=17 via_as=17 rel=2 exit=231:3 med=1 prefixes=1
+0 233 offered_to_as=18 via_as=18 rel=2 exit=231:4 med=0 prefixes=1
+0 233 offered_to_as=18 via_as=18 rel=2 exit=231:4 med=1 prefixes=1
+0 233 offered_to_as=19 via_as=19 rel=2 exit=231:5 med=0 prefixes=1
+0 233 offered_to_as=19 via_as=19 rel=2 exit=231:5 med=1 prefixes=1
+0 233 offered_to_as=20 via_as=20 rel=2 exit=231:6 med=0 prefixes=1
+0 233 offered_to_as=20 via_as=20 rel=2 exit=231:6 med=1 prefixes=1
+0 233 offered_to_as=21 via_as=21 rel=2 exit=231:7 med=0 prefixes=1
+0 233 offered_to_as=21 via_as=21 rel=2 exit=231:7 med=1 prefixes=1
+0 233 offered_to_as=21 via_as=21 rel=2 exit=232:3 med=0 prefixes=1
+0 233 offered_to_as=21 via_as=21 rel=2 exit=232:3 med=1 prefixes=1
+0 233 offered_to_as=22 via_as=22 rel=2 exit=231:8 med=0 prefixes=1
+0 233 offered_to_as=22 via_as=22 rel=2 exit=231:8 med=1 prefixes=1
+0 233 offered_to_as=22 via_as=22 rel=2 exit=232:4 med=0 prefixes=1
+0 233 offered_to_as=22 via_as=22 rel=2 exit=232:4 med=1 prefixes=1
+0 233 offered_to_as=24 via_as=24 rel=2 exit=231:9 med=0 prefixes=1
+0 233 offered_to_as=24 via_as=24 rel=2 exit=231:9 med=1 prefixes=1
+0 233 offered_to_as=24 via_as=24 rel=2 exit=232:5 med=0 prefixes=1
+0 233 offered_to_as=24 via_as=24 rel=2 exit=232:5 med=1 prefixes=1
+0 233 offered_to_as=25 via_as=25 rel=2 exit=232:6 med=0 prefixes=1
+0 233 offered_to_as=25 via_as=25 rel=2 exit=232:6 med=1 prefixes=1
+0 233 offered_to_as=26 via_as=26 rel=2 exit=232:7 med=0 prefixes=1
+0 233 offered_to_as=26 via_as=26 rel=2 exit=232:7 med=1 prefixes=1
+0 233 offered_to_as=28 via_as=28 rel=2 exit=232:8 med=0 prefixes=1
+0 233 offered_to_as=28 via_as=28 rel=2 exit=232:8 med=1 prefixes=1
+0 233 offered_to_as=100 via_as=100 rel=5 exit=231:2 med=0 prefixes=1
+0 233 offered_to_as=100 via_as=100 rel=5 exit=232:2 med=0 prefixes=1
+0 234 a4_round1 as=23 switch=234 installed_routes=37 offers=34 buffer_bytes=12500 failover=off
+0 234 port=0 internal_to_switch=232
+0 234 port=0 capacity_bps=100000000
+0 234 port=100 capacity_bps=10000000000
+0 234 port=101 capacity_bps=10000000000
+0 234 port=102 capacity_bps=10000000000
+0 234 own=10.23.1.0/24 class=1 out_port=0
+0 234 own=10.23.2.0/24 class=2 out_port=0
+0 234 own=10.23.3.0/24 class=3 out_port=0
+0 234 own=10.23.129.0/24 class=1 out_port=100
+0 234 own=10.23.130.0/24 class=2 out_port=101
+0 234 own=10.23.131.0/24 class=3 out_port=102
+0 234 own=10.23.17.0/24 class=1 out_port=0
+0 234 own=10.23.18.0/24 class=2 out_port=0
+0 234 own=10.23.19.0/24 class=3 out_port=0
+0 234 own=10.23.32.0/24 class=4 out_port=0
+0 234 default=0.0.0.0/0 out_port=0 trading=drop
+0 234 route_to_as=1 via_as=6 rel=2 out_port=0 prefixes=2
+0 234 route_to_as=3 via_as=6 rel=2 out_port=0 prefixes=2
+0 234 route_to_as=6 via_as=6 rel=2 out_port=0 prefixes=2
+0 234 route_to_as=17 via_as=17 rel=2 out_port=0 prefixes=2
+0 234 route_to_as=18 via_as=18 rel=2 out_port=0 prefixes=2
+0 234 route_to_as=19 via_as=19 rel=2 out_port=0 prefixes=2
+0 234 route_to_as=20 via_as=20 rel=2 out_port=0 prefixes=2
+0 234 route_to_as=21 via_as=21 rel=2 out_port=0 prefixes=2
+0 234 route_to_as=22 via_as=22 rel=2 out_port=0 prefixes=2
+0 234 route_to_as=24 via_as=24 rel=2 out_port=0 prefixes=2
+0 234 route_to_as=25 via_as=25 rel=2 out_port=0 prefixes=2
+0 234 route_to_as=26 via_as=26 rel=2 out_port=0 prefixes=2
+0 234 route_to_as=28 via_as=28 rel=2 out_port=0 prefixes=2
+0 234 selected=10.1.0.0/17 out_port=0 via_as=6 as_path=[6, 1]
+0 234 selected=10.1.128.0/17 out_port=0 via_as=6 as_path=[6, 1]
+0 234 selected=10.3.0.0/17 out_port=0 via_as=6 as_path=[6, 3]
+0 234 selected=10.3.128.0/17 out_port=0 via_as=6 as_path=[6, 3]
+0 234 selected=10.6.0.0/17 out_port=0 via_as=6 as_path=[6]
+0 234 selected=10.6.128.0/17 out_port=0 via_as=6 as_path=[6]
+0 234 selected=10.17.0.0/17 out_port=0 via_as=17 as_path=[17]
+0 234 selected=10.17.128.0/17 out_port=0 via_as=17 as_path=[17]
+0 234 selected=10.18.0.0/17 out_port=0 via_as=18 as_path=[18]
+0 234 selected=10.18.128.0/17 out_port=0 via_as=18 as_path=[18]
+0 234 selected=10.19.0.0/17 out_port=0 via_as=19 as_path=[19]
+0 234 selected=10.19.128.0/17 out_port=0 via_as=19 as_path=[19]
+0 234 selected=10.20.0.0/17 out_port=0 via_as=20 as_path=[20]
+0 234 selected=10.20.128.0/17 out_port=0 via_as=20 as_path=[20]
+0 234 selected=10.21.0.0/17 out_port=0 via_as=21 as_path=[21]
+0 234 selected=10.21.128.0/17 out_port=0 via_as=21 as_path=[21]
+0 234 selected=10.22.0.0/17 out_port=0 via_as=22 as_path=[22]
+0 234 selected=10.22.128.0/17 out_port=0 via_as=22 as_path=[22]
+0 234 selected=10.24.0.0/17 out_port=0 via_as=24 as_path=[24]
+0 234 selected=10.24.128.0/17 out_port=0 via_as=24 as_path=[24]
+0 234 selected=10.25.0.0/17 out_port=0 via_as=25 as_path=[25]
+0 234 selected=10.25.128.0/17 out_port=0 via_as=25 as_path=[25]
+0 234 selected=10.26.0.0/17 out_port=0 via_as=26 as_path=[26]
+0 234 selected=10.26.128.0/17 out_port=0 via_as=26 as_path=[26]
+0 234 selected=10.28.0.0/17 out_port=0 via_as=28 as_path=[28]
+0 234 selected=10.28.128.0/17 out_port=0 via_as=28 as_path=[28]
+0 234 offered_to_as=1 via_as=6 rel=2 exit=231:10 med=0 prefixes=2
+0 234 offered_to_as=3 via_as=6 rel=2 exit=231:10 med=0 prefixes=2
+0 234 offered_to_as=6 via_as=6 rel=2 exit=231:10 med=1 prefixes=1
+0 234 offered_to_as=6 via_as=6 rel=2 exit=231:10 med=2 prefixes=1
+0 234 offered_to_as=17 via_as=17 rel=2 exit=231:3 med=0 prefixes=1
+0 234 offered_to_as=17 via_as=17 rel=2 exit=231:3 med=1 prefixes=1
+0 234 offered_to_as=18 via_as=18 rel=2 exit=231:4 med=0 prefixes=1
+0 234 offered_to_as=18 via_as=18 rel=2 exit=231:4 med=1 prefixes=1
+0 234 offered_to_as=19 via_as=19 rel=2 exit=231:5 med=0 prefixes=1
+0 234 offered_to_as=19 via_as=19 rel=2 exit=231:5 med=1 prefixes=1
+0 234 offered_to_as=20 via_as=20 rel=2 exit=231:6 med=0 prefixes=1
+0 234 offered_to_as=20 via_as=20 rel=2 exit=231:6 med=1 prefixes=1
+0 234 offered_to_as=21 via_as=21 rel=2 exit=231:7 med=0 prefixes=1
+0 234 offered_to_as=21 via_as=21 rel=2 exit=231:7 med=1 prefixes=1
+0 234 offered_to_as=21 via_as=21 rel=2 exit=232:3 med=0 prefixes=1
+0 234 offered_to_as=21 via_as=21 rel=2 exit=232:3 med=1 prefixes=1
+0 234 offered_to_as=22 via_as=22 rel=2 exit=231:8 med=0 prefixes=1
+0 234 offered_to_as=22 via_as=22 rel=2 exit=231:8 med=1 prefixes=1
+0 234 offered_to_as=22 via_as=22 rel=2 exit=232:4 med=0 prefixes=1
+0 234 offered_to_as=22 via_as=22 rel=2 exit=232:4 med=1 prefixes=1
+0 234 offered_to_as=24 via_as=24 rel=2 exit=231:9 med=0 prefixes=1
+0 234 offered_to_as=24 via_as=24 rel=2 exit=231:9 med=1 prefixes=1
+0 234 offered_to_as=24 via_as=24 rel=2 exit=232:5 med=0 prefixes=1
+0 234 offered_to_as=24 via_as=24 rel=2 exit=232:5 med=1 prefixes=1
+0 234 offered_to_as=25 via_as=25 rel=2 exit=232:6 med=0 prefixes=1
+0 234 offered_to_as=25 via_as=25 rel=2 exit=232:6 med=1 prefixes=1
+0 234 offered_to_as=26 via_as=26 rel=2 exit=232:7 med=0 prefixes=1
+0 234 offered_to_as=26 via_as=26 rel=2 exit=232:7 med=1 prefixes=1
+0 234 offered_to_as=28 via_as=28 rel=2 exit=232:8 med=0 prefixes=1
+0 234 offered_to_as=28 via_as=28 rel=2 exit=232:8 med=1 prefixes=1
+0 234 offered_to_as=100 via_as=100 rel=5 exit=231:2 med=0 prefixes=1
+0 234 offered_to_as=100 via_as=100 rel=5 exit=232:2 med=0 prefixes=1
+200 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+200 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+200 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+200 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+400 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+400 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+400 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+400 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+600 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+600 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+600 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+600 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+800 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+800 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+800 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+800 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+1000 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+1000 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+1000 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+1000 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+1200 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+1200 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+1200 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+1200 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+1400 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+1400 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+1400 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+1400 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+1600 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+1600 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+1600 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+1600 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+1800 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+1800 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+1800 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+1800 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+2000 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+2000 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+2000 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+2000 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+2200 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+2200 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+2200 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+2200 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+2400 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+2400 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+2400 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+2400 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+2600 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+2600 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+2600 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+2600 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+2800 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+2800 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+2800 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+2800 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+3000 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+3000 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+3000 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+3000 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+3200 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+3200 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+3200 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+3200 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+3400 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+3400 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+3400 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+3400 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+3600 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+3600 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+3600 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+3600 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+3800 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+3800 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+3800 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+3800 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+4000 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+4000 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+4000 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+4000 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+4200 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+4200 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+4200 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+4200 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+4400 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+4400 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+4400 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+4400 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+4600 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+4600 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+4600 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+4600 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+4800 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+4800 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+4800 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+4800 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+5000 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+5000 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+5000 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+5000 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+5200 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+5200 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+5200 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+5200 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+5400 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+5400 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+5400 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+5400 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+5600 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+5600 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+5600 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+5600 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+5800 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+5800 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+5800 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+5800 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+6000 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+6000 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+6000 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+6000 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+6200 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+6200 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+6200 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+6200 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+6400 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+6400 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+6400 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+6400 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+6600 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+6600 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+6600 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+6600 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+6800 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+6800 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+6800 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+6800 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+7000 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+7000 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+7000 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+7000 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+7200 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+7200 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+7200 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+7200 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+7400 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+7400 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+7400 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+7400 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+7600 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+7600 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+7600 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+7600 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+7800 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+7800 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+7800 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+7800 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+8000 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+8000 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+8000 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+8000 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+8200 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+8200 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+8200 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+8200 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+8400 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+8400 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+8400 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+8400 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+8600 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+8600 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+8600 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+8600 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+8800 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+8800 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+8800 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+8800 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+9000 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+9000 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+9000 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+9000 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+9200 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+9200 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+9200 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+9200 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+9400 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+9400 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+9400 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+9400 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+9600 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+9600 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+9600 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+9600 234 egress_drops_last_200ms=0 policy=0 by_port=[]
+9800 231 egress_drops_last_200ms=0 policy=0 by_port=[]
+9800 232 egress_drops_last_200ms=0 policy=0 by_port=[]
+9800 233 egress_drops_last_200ms=0 policy=0 by_port=[]
+9800 234 egress_drops_last_200ms=0 policy=0 by_port=[]

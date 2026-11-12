@@ -1,0 +1,137 @@
+from,from_team,to,to_team,epoch,start_s,end_s,class,class_name,bytes,on_time,late,lost,returned,returned_on_time
+17,GPT 2,23,jknetwork,0,0.0,5.0,1,Web,620000,620000,0,0,0,0
+17,GPT 2,23,jknetwork,0,0.0,5.0,2,Video,1620000,1620000,0,0,0,0
+17,GPT 2,23,jknetwork,0,0.0,5.0,4,Trading,30000,30000,0,0,0,0
+17,GPT 2,23,jknetwork,1,5.0,10.0,1,Web,660000,530000,0,130000,0,0
+17,GPT 2,23,jknetwork,1,5.0,10.0,2,Video,1610000,1320000,0,290000,0,0
+17,GPT 2,23,jknetwork,1,5.0,10.0,4,Trading,30000,30000,0,0,0,0
+18,RedBull,23,jknetwork,0,0.0,5.0,1,Web,890000,890000,0,0,0,0
+18,RedBull,23,jknetwork,0,0.0,5.0,2,Video,2120000,2120000,0,0,0,0
+18,RedBull,23,jknetwork,0,0.0,5.0,4,Trading,50000,50000,0,0,0,0
+18,RedBull,23,jknetwork,1,5.0,10.0,1,Web,810000,690000,0,120000,0,0
+18,RedBull,23,jknetwork,1,5.0,10.0,2,Video,1720000,1490000,0,230000,0,0
+18,RedBull,23,jknetwork,1,5.0,10.0,4,Trading,40000,40000,0,0,0,0
+19,spatulameow,23,jknetwork,0,0.0,5.0,1,Web,640000,640000,0,0,0,0
+19,spatulameow,23,jknetwork,0,0.0,5.0,2,Video,1640000,1640000,0,0,0,0
+19,spatulameow,23,jknetwork,0,0.0,5.0,4,Trading,40000,40000,0,0,0,0
+19,spatulameow,23,jknetwork,1,5.0,10.0,1,Web,760000,630000,0,130000,0,0
+19,spatulameow,23,jknetwork,1,5.0,10.0,2,Video,1600000,1300000,0,300000,0,0
+19,spatulameow,23,jknetwork,1,5.0,10.0,4,Trading,30000,30000,0,0,0,0
+21,Jumbo Comets,23,jknetwork,0,0.0,5.0,1,Web,920000,920000,0,0,0,0
+21,Jumbo Comets,23,jknetwork,0,0.0,5.0,2,Video,3280000,3280000,0,0,0,0
+21,Jumbo Comets,23,jknetwork,0,0.0,5.0,3,Calls,430000,430000,0,0,0,0
+21,Jumbo Comets,23,jknetwork,1,5.0,10.0,1,Web,880000,880000,0,0,0,0
+21,Jumbo Comets,23,jknetwork,1,5.0,10.0,2,Video,3190000,3190000,0,0,0,0
+21,Jumbo Comets,23,jknetwork,1,5.0,10.0,3,Calls,410000,410000,0,0,0,0
+22,Packet Lanterns,23,jknetwork,0,0.0,5.0,1,Web,980000,980000,0,0,0,0
+22,Packet Lanterns,23,jknetwork,0,0.0,5.0,2,Video,3240000,3240000,0,0,0,0
+22,Packet Lanterns,23,jknetwork,0,0.0,5.0,3,Calls,510000,510000,0,0,0,0
+22,Packet Lanterns,23,jknetwork,1,5.0,10.0,1,Web,990000,820000,0,170000,0,0
+22,Packet Lanterns,23,jknetwork,1,5.0,10.0,2,Video,3380000,2760000,0,620000,0,0
+22,Packet Lanterns,23,jknetwork,1,5.0,10.0,3,Calls,450000,370000,0,80000,0,0
+23,jknetwork,17,GPT 2,0,0.0,5.0,1,Web,720000,720000,0,0,0,0
+23,jknetwork,17,GPT 2,0,0.0,5.0,2,Video,1640000,1640000,0,0,0,0
+23,jknetwork,17,GPT 2,0,0.0,5.0,4,Trading,30000,30000,0,0,0,0
+23,jknetwork,17,GPT 2,1,5.0,10.0,1,Web,600000,600000,0,0,0,0
+23,jknetwork,17,GPT 2,1,5.0,10.0,2,Video,1320000,1320000,0,0,0,0
+23,jknetwork,17,GPT 2,1,5.0,10.0,4,Trading,30000,30000,0,0,0,0
+23,jknetwork,18,RedBull,0,0.0,5.0,1,Web,1040000,980000,0,60000,0,0
+23,jknetwork,18,RedBull,0,0.0,5.0,2,Video,2340000,2200000,0,140000,0,0
+23,jknetwork,18,RedBull,0,0.0,5.0,4,Trading,60000,50000,0,10000,0,0
+23,jknetwork,18,RedBull,1,5.0,10.0,1,Web,820000,630000,0,190000,0,0
+23,jknetwork,18,RedBull,1,5.0,10.0,2,Video,1860000,1460000,0,400000,0,0
+23,jknetwork,18,RedBull,1,5.0,10.0,4,Trading,60000,30000,0,30000,0,0
+23,jknetwork,19,spatulameow,0,0.0,5.0,1,Web,710000,710000,0,0,0,0
+23,jknetwork,19,spatulameow,0,0.0,5.0,2,Video,1620000,1620000,0,0,0,0
+23,jknetwork,19,spatulameow,0,0.0,5.0,4,Trading,30000,30000,0,0,0,0
+23,jknetwork,19,spatulameow,1,5.0,10.0,1,Web,610000,610000,0,0,0,0
+23,jknetwork,19,spatulameow,1,5.0,10.0,2,Video,1350000,1350000,0,0,0,0
+23,jknetwork,19,spatulameow,1,5.0,10.0,4,Trading,30000,30000,0,0,0,0
+23,jknetwork,20,fastnetworkteam,0,0.0,5.0,1,Web,700000,700000,0,0,0,0
+23,jknetwork,20,fastnetworkteam,0,0.0,5.0,2,Video,1620000,1620000,0,0,0,0
+23,jknetwork,20,fastnetworkteam,0,0.0,5.0,4,Trading,30000,30000,0,0,0,0
+23,jknetwork,20,fastnetworkteam,1,5.0,10.0,1,Web,620000,620000,0,0,0,0
+23,jknetwork,20,fastnetworkteam,1,5.0,10.0,2,Video,1340000,1340000,0,0,0,0
+23,jknetwork,20,fastnetworkteam,1,5.0,10.0,4,Trading,30000,30000,0,0,0,0
+23,jknetwork,21,Jumbo Comets,0,0.0,5.0,1,Web,820000,820000,0,0,0,0
+23,jknetwork,21,Jumbo Comets,0,0.0,5.0,2,Video,3180000,3180000,0,0,0,0
+23,jknetwork,21,Jumbo Comets,0,0.0,5.0,3,Calls,500000,500000,0,0,0,0
+23,jknetwork,21,Jumbo Comets,1,5.0,10.0,1,Web,1020000,1020000,0,0,0,0
+23,jknetwork,21,Jumbo Comets,1,5.0,10.0,2,Video,3080000,3080000,0,0,0,0
+23,jknetwork,21,Jumbo Comets,1,5.0,10.0,3,Calls,450000,450000,0,0,0,0
+23,jknetwork,22,Packet Lanterns,0,0.0,5.0,1,Web,820000,820000,0,0,0,0
+23,jknetwork,22,Packet Lanterns,0,0.0,5.0,2,Video,3180000,3180000,0,0,0,0
+23,jknetwork,22,Packet Lanterns,0,0.0,5.0,3,Calls,500000,500000,0,0,0,0
+23,jknetwork,22,Packet Lanterns,1,5.0,10.0,1,Web,1020000,1020000,0,0,0,0
+23,jknetwork,22,Packet Lanterns,1,5.0,10.0,2,Video,3080000,3080000,0,0,0,0
+23,jknetwork,22,Packet Lanterns,1,5.0,10.0,3,Calls,430000,430000,0,0,0,0
+23,jknetwork,24,dinnyrob19,0,0.0,5.0,1,Web,810000,810000,0,0,0,0
+23,jknetwork,24,dinnyrob19,0,0.0,5.0,2,Video,3170000,3170000,0,0,0,0
+23,jknetwork,24,dinnyrob19,0,0.0,5.0,3,Calls,480000,480000,0,0,0,0
+23,jknetwork,24,dinnyrob19,1,5.0,10.0,1,Web,1010000,920000,0,90000,0,0
+23,jknetwork,24,dinnyrob19,1,5.0,10.0,2,Video,3060000,2810000,0,250000,0,0
+23,jknetwork,24,dinnyrob19,1,5.0,10.0,3,Calls,430000,410000,0,20000,0,0
+23,jknetwork,25,GPT 1,0,0.0,5.0,1,Web,700000,700000,0,0,0,0
+23,jknetwork,25,GPT 1,0,0.0,5.0,2,Video,1620000,1620000,0,0,0,0
+23,jknetwork,25,GPT 1,0,0.0,5.0,4,Trading,30000,30000,0,0,0,0
+23,jknetwork,25,GPT 1,1,5.0,10.0,1,Web,640000,640000,0,0,0,0
+23,jknetwork,25,GPT 1,1,5.0,10.0,2,Video,1320000,1320000,0,0,0,0
+23,jknetwork,25,GPT 1,1,5.0,10.0,4,Trading,20000,20000,0,0,0,0
+23,jknetwork,26,Lucky Comets,0,0.0,5.0,1,Web,690000,690000,0,0,0,0
+23,jknetwork,26,Lucky Comets,0,0.0,5.0,2,Video,1620000,1620000,0,0,0,0
+23,jknetwork,26,Lucky Comets,0,0.0,5.0,4,Trading,30000,30000,0,0,0,0
+23,jknetwork,26,Lucky Comets,1,5.0,10.0,1,Web,650000,650000,0,0,0,0
+23,jknetwork,26,Lucky Comets,1,5.0,10.0,2,Video,1300000,1300000,0,0,0,0
+23,jknetwork,26,Lucky Comets,1,5.0,10.0,4,Trading,20000,20000,0,0,0,0
+23,jknetwork,27,Network Champions,0,0.0,5.0,1,Web,680000,680000,0,0,0,0
+23,jknetwork,27,Network Champions,0,0.0,5.0,2,Video,1620000,1620000,0,0,0,0
+23,jknetwork,27,Network Champions,0,0.0,5.0,4,Trading,20000,20000,0,0,0,0
+23,jknetwork,27,Network Champions,1,5.0,10.0,1,Web,660000,510000,0,150000,0,0
+23,jknetwork,27,Network Champions,1,5.0,10.0,2,Video,1290000,990000,0,300000,0,0
+23,jknetwork,27,Network Champions,1,5.0,10.0,4,Trading,30000,30000,0,0,0,0
+23,jknetwork,28,bevo_baddies,0,0.0,5.0,1,Web,680000,680000,0,0,0,0
+23,jknetwork,28,bevo_baddies,0,0.0,5.0,2,Video,1620000,1620000,0,0,0,0
+23,jknetwork,28,bevo_baddies,0,0.0,5.0,4,Trading,20000,20000,0,0,0,0
+23,jknetwork,28,bevo_baddies,1,5.0,10.0,1,Web,660000,630000,0,30000,0,0
+23,jknetwork,28,bevo_baddies,1,5.0,10.0,2,Video,1280000,1190000,0,90000,0,0
+23,jknetwork,28,bevo_baddies,1,5.0,10.0,4,Trading,30000,30000,0,0,0,0
+23,jknetwork,100,Tier-1,0,0.0,5.0,1,Web,6080000,5960000,0,120000,0,0
+23,jknetwork,100,Tier-1,0,0.0,5.0,2,Video,13060000,12910000,0,150000,0,0
+23,jknetwork,100,Tier-1,1,5.0,10.0,1,Web,5270000,5270000,0,0,0,0
+23,jknetwork,100,Tier-1,1,5.0,10.0,2,Video,11850000,11830000,0,20000,0,0
+24,dinnyrob19,23,jknetwork,0,0.0,5.0,1,Web,920000,920000,0,0,0,0
+24,dinnyrob19,23,jknetwork,0,0.0,5.0,2,Video,3520000,3520000,0,0,0,0
+24,dinnyrob19,23,jknetwork,0,0.0,5.0,3,Calls,510000,510000,0,0,0,0
+24,dinnyrob19,23,jknetwork,1,5.0,10.0,1,Web,960000,800000,0,160000,0,0
+24,dinnyrob19,23,jknetwork,1,5.0,10.0,2,Video,3410000,2790000,0,620000,0,0
+24,dinnyrob19,23,jknetwork,1,5.0,10.0,3,Calls,480000,400000,0,80000,0,0
+25,GPT 1,23,jknetwork,0,0.0,5.0,1,Web,640000,640000,0,0,0,0
+25,GPT 1,23,jknetwork,0,0.0,5.0,2,Video,1620000,1620000,0,0,0,0
+25,GPT 1,23,jknetwork,0,0.0,5.0,4,Trading,30000,30000,0,0,0,0
+25,GPT 1,23,jknetwork,1,5.0,10.0,1,Web,700000,580000,0,120000,0,0
+25,GPT 1,23,jknetwork,1,5.0,10.0,2,Video,1650000,1350000,0,300000,0,0
+25,GPT 1,23,jknetwork,1,5.0,10.0,4,Trading,20000,10000,0,10000,0,0
+26,Lucky Comets,23,jknetwork,0,0.0,5.0,1,Web,660000,660000,0,0,0,0
+26,Lucky Comets,23,jknetwork,0,0.0,5.0,2,Video,1620000,1620000,0,0,0,0
+26,Lucky Comets,23,jknetwork,0,0.0,5.0,4,Trading,30000,30000,0,0,0,0
+26,Lucky Comets,23,jknetwork,1,5.0,10.0,1,Web,760000,640000,0,120000,0,0
+26,Lucky Comets,23,jknetwork,1,5.0,10.0,2,Video,1620000,1320000,0,300000,0,0
+26,Lucky Comets,23,jknetwork,1,5.0,10.0,4,Trading,30000,20000,0,10000,0,0
+27,Network Champions,23,jknetwork,0,0.0,5.0,1,Web,680000,680000,0,0,0,0
+27,Network Champions,23,jknetwork,0,0.0,5.0,2,Video,1620000,1620000,0,0,0,0
+27,Network Champions,23,jknetwork,0,0.0,5.0,4,Trading,30000,30000,0,0,0,0
+27,Network Champions,23,jknetwork,1,5.0,10.0,1,Web,620000,480000,0,140000,0,0
+27,Network Champions,23,jknetwork,1,5.0,10.0,2,Video,1320000,1020000,0,300000,0,0
+27,Network Champions,23,jknetwork,1,5.0,10.0,4,Trading,30000,20000,0,10000,0,0
+28,bevo_baddies,23,jknetwork,0,0.0,5.0,1,Web,620000,620000,0,0,0,0
+28,bevo_baddies,23,jknetwork,0,0.0,5.0,2,Video,1640000,1640000,0,0,0,0
+28,bevo_baddies,23,jknetwork,0,0.0,5.0,4,Trading,30000,30000,0,0,0,0
+28,bevo_baddies,23,jknetwork,1,5.0,10.0,1,Web,660000,540000,0,120000,0,0
+28,bevo_baddies,23,jknetwork,1,5.0,10.0,2,Video,1460000,1180000,0,280000,0,0
+28,bevo_baddies,23,jknetwork,1,5.0,10.0,4,Trading,30000,20000,0,10000,0,0
+100,Tier-1,23,jknetwork,0,0.0,5.0,1,Web,9590000,9590000,0,0,0,0
+100,Tier-1,23,jknetwork,0,0.0,5.0,2,Video,21900000,21900000,0,0,0,0
+100,Tier-1,23,jknetwork,0,0.0,5.0,4,Trading,290000,0,290000,0,0,0
+100,Tier-1,23,jknetwork,1,5.0,10.0,1,Web,9410000,9410000,0,0,0,0
+100,Tier-1,23,jknetwork,1,5.0,10.0,2,Video,22180000,22180000,0,0,0,0
+100,Tier-1,23,jknetwork,1,5.0,10.0,4,Trading,280000,0,280000,0,0,0

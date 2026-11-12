@@ -1,0 +1,110 @@
+0 11 a4_selective_failover as=1 switch=11 installed_routes=11 offers=2 buffer_bytes=12500 failover=crossing_calls_only_access_drop_all
+0 11 port=0 internal_to_switch=13
+0 11 port=1 internal_to_switch=12
+0 11 port=2 border_to_as=100 rel=5
+0 11 port=3 border_to_as=2 rel=0
+0 11 port=4 border_to_as=3 rel=0
+0 11 port=5 border_to_as=4 rel=0
+0 11 port=6 border_to_as=13 rel=0
+0 11 port=7 border_to_as=14 rel=0
+0 11 port=8 border_to_as=15 rel=0
+0 11 port=9 border_to_as=16 rel=0
+0 11 port=0 capacity_bps=100000000
+0 11 port=1 capacity_bps=10000000
+0 11 port=2 capacity_bps=4000000
+0 11 port=3 capacity_bps=20000000
+0 11 port=4 capacity_bps=20000000
+0 11 port=5 capacity_bps=20000000
+0 11 port=6 capacity_bps=20000000
+0 11 port=7 capacity_bps=20000000
+0 11 port=8 capacity_bps=20000000
+0 11 port=9 capacity_bps=20000000
+0 11 port=100 capacity_bps=10000000000
+0 11 own=10.1.1.0/24 class=1 out_port=0
+0 11 own=10.1.2.0/24 class=2 out_port=0
+0 11 own=10.1.3.0/24 class=3 out_port=0
+0 11 own=10.1.129.0/24 class=1 out_port=1
+0 11 own=10.1.130.0/24 class=2 out_port=1
+0 11 own=10.1.131.0/24 class=3 out_port=1
+0 11 own=10.1.17.0/24 class=1 out_port=0
+0 11 own=10.1.18.0/24 class=2 out_port=0
+0 11 own=10.1.19.0/24 class=3 out_port=0
+0 11 own=10.1.32.0/24 class=4 out_port=100
+0 11 default=0.0.0.0/0 out_port=2 trading=drop
+0 11 offered_to_as=100 via_as=100 rel=5 exit=11:2 med=0 prefixes=1
+0 11 offered_to_as=100 via_as=100 rel=5 exit=12:2 med=0 prefixes=1
+0 12 a4_selective_failover as=1 switch=12 installed_routes=11 offers=2 buffer_bytes=12500 failover=crossing_calls_only_access_drop_all
+0 12 port=0 internal_to_switch=14
+0 12 port=1 internal_to_switch=11
+0 12 port=2 border_to_as=100 rel=5
+0 12 port=3 border_to_as=2 rel=0
+0 12 port=4 border_to_as=3 rel=0
+0 12 port=5 border_to_as=4 rel=0
+0 12 port=6 border_to_as=5 rel=0
+0 12 port=7 border_to_as=6 rel=0
+0 12 port=8 border_to_as=7 rel=0
+0 12 port=9 border_to_as=8 rel=0
+0 12 port=0 capacity_bps=100000000
+0 12 port=1 capacity_bps=10000000
+0 12 port=2 capacity_bps=4000000
+0 12 port=3 capacity_bps=20000000
+0 12 port=4 capacity_bps=20000000
+0 12 port=5 capacity_bps=20000000
+0 12 port=6 capacity_bps=20000000
+0 12 port=7 capacity_bps=20000000
+0 12 port=8 capacity_bps=20000000
+0 12 port=9 capacity_bps=20000000
+0 12 own=10.1.1.0/24 class=1 out_port=1
+0 12 own=10.1.2.0/24 class=2 out_port=1
+0 12 own=10.1.3.0/24 class=3 out_port=1
+0 12 own=10.1.129.0/24 class=1 out_port=0
+0 12 own=10.1.130.0/24 class=2 out_port=0
+0 12 own=10.1.131.0/24 class=3 out_port=0
+0 12 own=10.1.17.0/24 class=1 out_port=1
+0 12 own=10.1.18.0/24 class=2 out_port=1
+0 12 own=10.1.19.0/24 class=3 out_port=1
+0 12 own=10.1.32.0/24 class=4 out_port=1
+0 12 default=0.0.0.0/0 out_port=2 trading=drop
+0 12 offered_to_as=100 via_as=100 rel=5 exit=11:2 med=0 prefixes=1
+0 12 offered_to_as=100 via_as=100 rel=5 exit=12:2 med=0 prefixes=1
+0 13 a4_selective_failover as=1 switch=13 installed_routes=11 offers=2 buffer_bytes=12500 failover=crossing_calls_only_access_drop_all
+0 13 port=0 internal_to_switch=11
+0 13 port=0 capacity_bps=100000000
+0 13 port=100 capacity_bps=10000000000
+0 13 port=101 capacity_bps=10000000000
+0 13 port=102 capacity_bps=10000000000
+0 13 port=103 capacity_bps=10000000000
+0 13 port=104 capacity_bps=10000000000
+0 13 port=105 capacity_bps=10000000000
+0 13 own=10.1.1.0/24 class=1 out_port=100
+0 13 own=10.1.2.0/24 class=2 out_port=101
+0 13 own=10.1.3.0/24 class=3 out_port=102
+0 13 own=10.1.129.0/24 class=1 out_port=0
+0 13 own=10.1.130.0/24 class=2 out_port=0
+0 13 own=10.1.131.0/24 class=3 out_port=0
+0 13 own=10.1.17.0/24 class=1 out_port=103
+0 13 own=10.1.18.0/24 class=2 out_port=104
+0 13 own=10.1.19.0/24 class=3 out_port=105
+0 13 own=10.1.32.0/24 class=4 out_port=0
+0 13 default=0.0.0.0/0 out_port=0 trading=drop
+0 13 offered_to_as=100 via_as=100 rel=5 exit=11:2 med=0 prefixes=1
+0 13 offered_to_as=100 via_as=100 rel=5 exit=12:2 med=0 prefixes=1
+0 14 a4_selective_failover as=1 switch=14 installed_routes=11 offers=2 buffer_bytes=12500 failover=crossing_calls_only_access_drop_all
+0 14 port=0 internal_to_switch=12
+0 14 port=0 capacity_bps=100000000
+0 14 port=100 capacity_bps=10000000000
+0 14 port=101 capacity_bps=10000000000
+0 14 port=102 capacity_bps=10000000000
+0 14 own=10.1.1.0/24 class=1 out_port=0
+0 14 own=10.1.2.0/24 class=2 out_port=0
+0 14 own=10.1.3.0/24 class=3 out_port=0
+0 14 own=10.1.129.0/24 class=1 out_port=100
+0 14 own=10.1.130.0/24 class=2 out_port=101
+0 14 own=10.1.131.0/24 class=3 out_port=102
+0 14 own=10.1.17.0/24 class=1 out_port=0
+0 14 own=10.1.18.0/24 class=2 out_port=0
+0 14 own=10.1.19.0/24 class=3 out_port=0
+0 14 own=10.1.32.0/24 class=4 out_port=0
+0 14 default=0.0.0.0/0 out_port=0 trading=drop
+0 14 offered_to_as=100 via_as=100 rel=5 exit=11:2 med=0 prefixes=1
+0 14 offered_to_as=100 via_as=100 rel=5 exit=12:2 med=0 prefixes=1

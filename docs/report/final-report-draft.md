@@ -71,6 +71,8 @@ The immediate proposal was to seek free peering with reachable neighbors still l
 
 **Follow-up local test:** A more selective candidate lets Calls take paid Tier-1 only when an internal hub crossing removes a route; it blocks other classes, and blocks every class when an access link itself makes the destination unreachable. In the same World 1-like local crossing test it improved utility by **$61.22** versus the submitted switch, with Calls on time rising from **26.40 to 27.44 Mb** and Tier-1 fees rising only **$6.48**. In an access-link failure it changed utility by **−$0.89** with no added Tier-1 fee; with no failure, by **−$0.16**. All runs completed without program stops. These are practice-world counterfactuals; the live submitted `switch.wasm` remains unchanged pending a site dry run. [Selective failover evidence](evidence/round-2/selective-internal-failover-test.md).
 
+**Site dry-run follow-up:** The v4 plain log confirms the selective candidate started on the four practice AS 1 switches, but it contains only startup entries and no runtime drop samples. That practice AS offered only Tier-1, so its startup routes do not test our live peering choices. We fixed the candidate's runtime log trigger to count timer callbacks and aggregate two 100 ms drop intervals; this leaves the no-failure local statement unchanged. The uploaded v4 result cannot be evaluated for utility from the log alone. [Log and diagnostic](evidence/round-2/selective-internal-failover-test.md).
+
 ## Round 3 — November 17
 
 **Decision and rationale:** [To complete after cutoff.]

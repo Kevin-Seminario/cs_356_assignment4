@@ -41,6 +41,8 @@ pub struct Starter {
     startup_logged: bool,
     runtime_log_bytes: usize,
     runtime_log_budget: usize,
+    timer_ticks: u64,
+    drop_window: BTreeMap<u16, (u64, u64, Vec<u64>)>,
     me: u32,
     info: wire::A4InfoW,
     internal: Vec<u16>,
@@ -325,6 +327,8 @@ impl SwitchProgram for Starter {
                 startup_logged: false,
                 runtime_log_bytes: 0,
                 runtime_log_budget: 0,
+                timer_ticks: 0,
+                drop_window: BTreeMap::new(),
                 me: 0,
                 info: wire::A4InfoW::default(),
                 internal: vec![],
@@ -355,6 +359,8 @@ impl SwitchProgram for Starter {
                 startup_logged: false,
                 runtime_log_bytes: 0,
                 runtime_log_budget: per_switch - per_switch * 3 / 5,
+                timer_ticks: 0,
+                drop_window: BTreeMap::new(),
                 me: input.switch_id,
                 info: info.clone(),
                 last_hello: internal.iter().map(|&p| (p, 0)).collect(),
@@ -406,6 +412,20 @@ impl SwitchProgram for Starter {
         if self.info.switches.is_empty() {
             return out;
         }
+        self.timer_ticks += 1;
+        // The simulator reports drops since the preceding timer. Accumulate
+        // two 100 ms timer intervals so the log reports the full 200 ms.
+        for drops in &ev.port_drops {
+            let entry = self.drop_window.entry(drops.port).or_default();
+            entry.0 += drops.dropped as u64;
+            entry.1 += drops.policy as u64;
+            if entry.2.len() < drops.queues.len() {
+                entry.2.resize(drops.queues.len(), 0);
+            }
+            for (sum, count) in entry.2.iter_mut().zip(&drops.queues) {
+                *sum += *count as u64;
+            }
+        }
         for &port in &self.internal {
             out.push(actions::inject_packet(
                 port,
@@ -451,13 +471,12 @@ impl SwitchProgram for Starter {
                     .map(|line| actions::log_write(line.into_bytes())),
             );
             self.startup_logged = true;
-        } else if ev.now_ns % LOG_INTERVAL_NS == 0 {
-            let total: u64 = ev.port_drops.iter().map(|d| d.dropped as u64).sum();
-            let policy: u64 = ev.port_drops.iter().map(|d| d.policy as u64).sum();
-            let ports = ev
-                .port_drops
+        } else if self.timer_ticks % (LOG_INTERVAL_NS / HELLO_INTERVAL_NS) == 0 {
+            let total: u64 = self.drop_window.values().map(|d| d.0).sum();
+            let policy: u64 = self.drop_window.values().map(|d| d.1).sum();
+            let ports = self.drop_window
                 .iter()
-                .map(|d| format!("{}:{}:q{:?}", d.port, d.dropped, d.queues))
+                .map(|(port, d)| format!("{}:{}:q{:?}", port, d.0, d.2))
                 .collect::<Vec<_>>()
                 .join(",");
             let line = format!(
@@ -465,6 +484,7 @@ impl SwitchProgram for Starter {
                 total, policy, ports
             );
             self.log_runtime(&mut out, line);
+            self.drop_window.clear();
         }
         out.push(actions::schedule_timer(HELLO_INTERVAL_NS));
         out

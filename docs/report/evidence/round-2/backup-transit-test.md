@@ -1,0 +1,23 @@
+# World 1 backup transit: controlled agreement and program test
+
+This is a **local full-ring practice model**, not a replay of the live round or a test of Jumbo Comets' actual program. Our AS is 23, Jumbo Comets is modeled as AS 21, and the simulated hub crossing fails from 5.4 to 7.2 seconds. The model preserves the World 1-like RedBull transit and neighboring peering used in our earlier tests. All other ASes run the kit starter unless noted. The buyer pays no fixed fee, $0.50/Mb of its own traffic returned through AS 21, capped at $50 per round. The model disables the optional refund so the gain cannot come from a refund payment.
+
+The seller program matters as much as the signed template. The kit starter's nearest-exit ranking can send our traffic right back to the IXP where it entered AS 21. Our [seller-side probe](../../../../examples/a4_backup_seller_probe/src/lib.rs) models a cooperating seller: for buyer AS 23's prefixes it uses the advertised MED to select the other IXP. It is hardcoded to AS 23 for this experiment. We have no evidence that Jumbo Comets runs this policy.
+
+Our [buyer-side probe](../../../../examples/a4_backup_probe/src/lib.rs) starts from the selective internal-failure candidate, not the submitted switch. It normally rejects backup offers. Only when its local hub crossing is declared down does it accept a backup offer. The offer covers our /17 blocks, whereas customer applications have /24 entries. For an application made unreachable only by the crossing, it installs a matching /24 via the backup egress; otherwise the old /24 drop entry would override the broader backup route. The access-link failure path still blocks all classes. Neither probe is the uploaded live `switch.wasm`.
+
+## Measured local outcomes
+
+- **Crossing down; seller remains on the kit starter:** allowing backup unconditionally reduced our utility from **$3,121.09** to **$3,088.43**. We paid AS 21 **$10.48** but delivered fewer on-time Calls (27.12 Mb versus 27.44 Mb). A signed agreement alone is not enough.
+- **Crossing down; seller cooperates; buyer enables backup only on failure:** our utility was **$3,223.91**, up **$102.82** against the selective candidate without backup. On-time Calls were **28.88 Mb** versus 27.44 Mb, and Tier-1 fees were **$1,262.40** versus $1,268.88. We paid AS 21 **$20.52**, corresponding to about 41.04 Mb of returned traffic at $0.50/Mb. AS 21's utility was **$20.31** in the cooperative test versus **−$11.37** in the no-backup reference. This is an outcome of the synthetic model, not a guaranteed live profit for either team.
+- **No failure:** the conditional buyer's utility was **$3,293.99**, matching the selective candidate; AS 21 received no backup payment.
+- **Access link down instead of crossing:** the conditional buyer's utility was **$2,949.94**, matching the selective candidate; AS 21 received no backup payment. The earlier unconditional buyer had fallen to **$2,900.50** in this case, which is why backup is now gated on detecting the crossing failure.
+- All three final conditional runs completed with **zero program stops**. The crossing replay shows our hub switches detecting the failed crossing around 5.7 seconds, installing /24 routes via AS 21, then restoring normal routes after recovery around 7.21 seconds.
+
+## Decision
+
+An opening offer of **$0 fixed, $0.50/Mb returned, $50 payment cap, one round** is reasonable to propose, but it is valuable only with two program changes: our buyer must actually select the offered backup route after failure, and Jumbo Comets must send our traffic across its own crossing rather than returning it at the entry IXP. The $50 cap limits settlement, not traffic. A one-round agreement renews unless either side declines. We should confirm the seller's intended routing and test the actual signed arrangement before replacing the uploaded switch. The site's small practice dry run does not test the World 1 agreement mix.
+
+## Reproduction
+
+Build the buyer probe, seller probe, and backup settlement as separate `wasm32-unknown-unknown` release crates. Then run `competitive_net_sim run-a4` with [the cooperative world](../../../../worlds/practice/failover-w1-backup-cooperative.toml), `--as 23`, buyer probe WASM, and [the crossing failure schedule](../../../../worlds/practice/failures/failover-w1-crossing.toml). Omit the failure schedule for normal operation; use [the access-link schedule](../../../../worlds/practice/failures/failover-w1-access.toml) for the access regression check. [The starter-seller world](../../../../worlds/practice/failover-w1-backup-no-refund.toml) isolates the effect of seller cooperation.

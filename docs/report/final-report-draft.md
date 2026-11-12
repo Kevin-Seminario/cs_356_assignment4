@@ -75,6 +75,8 @@ The immediate proposal was to seek free peering with reachable neighbors still l
 
 **Site dry-run v5:** The logging fix produced 200 periodic samples. They recorded 1,582 egress refusals, all but one at practice switch 11's 4 Mb/s Tier-1 port; policy-drop counters were zero and no internal-link change was logged. The starter v3 log had 1,558 refusals over 196 slightly different sample windows, nearly all at the same port. The repeated congestion is a practice Tier-1 bottleneck, and the log alone still cannot establish utility or a live failover gain. [v5 log and comparison](evidence/round-2/selective-internal-failover-test.md).
 
+**Measured v5 dry-run score and landslide:** The site reports normal practice utility **−$36.99** (**+$3.77 versus starter**), **68%** home traffic on time, and two route-settlement passes. With the published landslide, utility is **−$196.32**. Local reruns of that same small practice schedule give **−$193.89** for our submitted switch and **−$196.32** for the selective candidate: a **−$2.42** change. The candidate detected the crossing down at **3,300 ms**, restored it around **7,010 ms**, and repaired route entries, but on-time Calls stayed at **6.08 Mb** while Tier-1 fees rose **$1.20**. This is a counterexample to treating all crossing recovery as profitable. We have not replaced the live submitted `switch.wasm`; the positive World 1-like local scenario and negative site landslide must be weighed against the actual live agreement mix. [Landslide log and controlled comparison](evidence/round-2/selective-internal-failover-test.md).
+
 ## Round 3 — November 17
 
 **Decision and rationale:** [To complete after cutoff.]

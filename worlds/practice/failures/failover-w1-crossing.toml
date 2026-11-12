@@ -1,0 +1,13 @@
+# Local approximation of World 1's Round 2 crossing outage. The public
+# practice full-ring world is not the hidden live world; both programs below
+# run against this same topology, traffic, and failure schedule.
+[schedule]
+world = "full"
+seed = 0
+recovery_budget_ms = 1000
+duration_ms = 10000
+
+[[failure]]
+link = [231, 232]
+down_ms = 5400
+up_ms = 7200

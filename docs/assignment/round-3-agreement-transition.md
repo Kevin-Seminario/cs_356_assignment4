@@ -1,0 +1,11 @@
+# Round 3 agreement transition
+
+Source: the November 14 `agreements-pack.zip` and `Programmable-agreement-system-agent-pickup.md` supplied with the A4 kit. Read the full brief and the updated SDK before drafting a deal.
+
+Beginning at the Round 3 cutoff (Tuesday, November 17, 10:00 a.m. Central), an offer is one compiled agreement `.wasm` file. The old website form is closed. Existing form agreements run through their current term and then end, including agreements with AI teams; keeping one requires a file that both parties sign. Each file names one world, two to four parties, the peer/transit/backup links it opens, a per-party payment cap, a term of one to three rounds, named payment terms, readable clauses, and the settlement rule. The program's settlement code, not its readable clauses, determines payment.
+
+The settlement rule sees only the traffic meters between its parties, split by direction, class, and five-second epoch, along with its terms, round count, and up to 4 KiB of state from the preceding round. It cannot directly see another AS's unrelated routes, utility, or all of its customer traffic. Multi-party agreements can coordinate several links and payments but require every party to sign.
+
+The team controls which agreement to propose. Before creating one, identify the desired routes, which party buys transit or provides backup, what on-time benefit is plausible, the maximum acceptable payment per round, and the term. For someone else's file, inspect the attached source and cap and compare its historical payment preview with the relevant statement and meter readings. Test the same world with and without the file; for stateful agreements, also test a later round with the previous state. A file with no source should not be signed until its payment logic is reviewable.
+
+Local kit verification on November 14: the simulator built with its `wasm` feature; all six supplied agreement examples compiled to wasm after updating their lockfiles to the locally cached `syn` 3.0.9; a temporary practice-world run with the supplied peering example between AS 1 and AS 3 and our existing `switch.wasm` exited successfully with zero stopped programs, no agreement error, and zero settlement. The example files still contain placeholder parties and terms. They are build/test references, not ready-to-upload offers.

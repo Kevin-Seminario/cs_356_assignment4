@@ -109,6 +109,21 @@ enum Cmd {
         /// Write the run's replay (.simlog) here, for the viewer.
         #[arg(long)]
         log: Option<PathBuf>,
+        /// Write each AS's program log (its switches' `log_write`s) to
+        /// DIR/as-N.log, for every AS that wrote one, and each AS's own
+        /// replay to DIR/as-N.simlog, for every AS.
+        #[arg(long, value_name = "DIR")]
+        team_logs: Option<PathBuf>,
+        /// Write each AS's meter readings and outages, as its settlement
+        /// programs see them, to DIR/as-N.json, for every AS.
+        #[arg(long, value_name = "DIR")]
+        readings_dir: Option<PathBuf>,
+        /// Write what each agreement settled, in the world file's order, as
+        /// JSON to this path: its parties, what each pays in dollars
+        /// (negative: receives), its program's state for the next round
+        /// (hex), and the error if its program failed.
+        #[arg(long)]
+        agreements_json: Option<PathBuf>,
     },
 
     /// Generate world files. Same seed, same bytes, forever.
@@ -194,11 +209,11 @@ fn main() -> std::io::Result<()> {
             None,
         ),
         #[cfg(feature = "wasm")]
-        Cmd::RunA4 { world, until_ms, failures, load_scale, json, program, seat, log } => {
+        Cmd::RunA4 { world, until_ms, failures, load_scale, json, program, seat, log, team_logs, readings_dir, agreements_json } => {
             if seat.is_some() && program.is_none() {
                 return Err(std::io::Error::other("--as needs --program"));
             }
-            run_a4(world, until_ms, failures, load_scale, json, seat, program, log)
+            run_a4(world, until_ms, failures, load_scale, json, seat, program, log, team_logs, readings_dir, agreements_json)
         }
         #[cfg(feature = "wasm")]
         Cmd::RunWorld {
@@ -709,6 +724,9 @@ fn run_a4(
     seat: Option<u32>,
     program: Option<PathBuf>,
     log: Option<PathBuf>,
+    team_logs: Option<PathBuf>,
+    readings_dir: Option<PathBuf>,
+    agreements_json: Option<PathBuf>,
 ) -> std::io::Result<()> {
     use competitive_net_sim::types::OwnerId;
     let bad = |e: String| std::io::Error::new(std::io::ErrorKind::InvalidData, e);
@@ -717,7 +735,17 @@ fn run_a4(
     let base = path.parent().unwrap_or(std::path::Path::new("."));
     let started = std::time::Instant::now();
     let mut sim = Simulator::new();
-    if let Some(p) = log.as_ref() {
+    // Each AS's replay is cut from the whole world's: --log's, else a
+    // scratch file in the team-logs directory.
+    let whole = match (&log, &team_logs) {
+        (Some(p), _) => Some(p.clone()),
+        (None, Some(dir)) => {
+            std::fs::create_dir_all(dir)?;
+            Some(dir.join(".world.simlog"))
+        }
+        (None, None) => None,
+    };
+    if let Some(p) = whole.as_ref() {
         sim.start_logging(p)?;
     }
     let handles = world.build_with_load(&mut sim, load_scale).map_err(|e| bad(e.to_string()))?;
@@ -819,6 +847,31 @@ fn run_a4(
     for s in &mut st {
         s.routes_unsettled = !routing.settled;
         s.policy_failed = routing.failed.get(&s.as_id).cloned();
+        // The reason of the AS's lowest-numbered stopped switch.
+        s.program_failed = world
+            .switches
+            .iter()
+            .filter(|w| w.as_id == s.as_id)
+            .filter_map(|w| Some((w.id, sim.switches.get(&SwitchId::new(w.id))?.controller.failure()?)))
+            .min()
+            .map(|(_, why)| why);
+    }
+    if let Some(dir) = &team_logs {
+        std::fs::create_dir_all(dir)?;
+        for (as_id, text) in sim.as_logs.as_ref().map(|l| l.texts().collect::<Vec<_>>()).unwrap_or_default() {
+            std::fs::write(dir.join(format!("as-{as_id}.log")), text)?;
+        }
+        let whole = whole.as_ref().expect("logged with team logs");
+        competitive_net_sim::a4::replay::split(&world, whole, dir).map_err(|e| bad(format!("{e:?}")))?;
+        if log.is_none() {
+            std::fs::remove_file(whole)?;
+        }
+    }
+    if let Some(dir) = &readings_dir {
+        std::fs::create_dir_all(dir)?;
+        for r in competitive_net_sim::a4::as_readings(&world, &sim, schedule.as_ref(), until.as_millis() as u64) {
+            std::fs::write(dir.join(format!("as-{}.json", r.as_id)), serde_json::to_vec(&r).map_err(|e| bad(e.to_string()))?)?;
+        }
     }
     println!(
         "A4 world '{}': {} switches, {} ASes, ran {} ms in {:.1} s (load {:.1} s); {stopped} programs stopped",
@@ -854,11 +907,15 @@ fn run_a4(
         println!("  AS {as_id}'s policy failed, so it used the usual one: {why}");
     }
     for s in settled.iter().filter(|s| s.error.is_some()) {
-        println!("  agreement {}-{} paid nothing: {}", s.a, s.b, s.error.as_deref().unwrap_or(""));
+        let parties: Vec<String> = s.parties.iter().map(u32::to_string).collect();
+        println!("  agreement {} paid nothing: {}", parties.join("-"), s.error.as_deref().unwrap_or(""));
     }
     println!("  drops by link: {:?}", competitive_net_sim::a4::drops(&world, &sim));
     if let Some(p) = json {
         std::fs::write(p, serde_json::to_string_pretty(&st)? + "\n")?;
+    }
+    if let Some(p) = agreements_json {
+        std::fs::write(p, serde_json::to_string_pretty(&settled)? + "\n")?;
     }
     Ok(())
 }

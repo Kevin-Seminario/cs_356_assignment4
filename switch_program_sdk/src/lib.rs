@@ -481,6 +481,119 @@ macro_rules! settlement_program {
     };
 }
 
+/// Wire an agreement program up as its wasm exports (A4). The file is the
+/// whole deal: `settle` is a `fn(&wire::SettleInput2W) -> wire::SettleOutputW`
+/// that reads the round's meter readings and returns what each party pays,
+/// and the rest is what the parties sign. `world` is the world it is for;
+/// `parties` the two to four team codes, in party order; `links` the links
+/// it makes between them (`"peer"`, `"transit"` or `"backup"`; for the last
+/// two the first buys from the second); `cap` the most any one party pays
+/// in a round, in whole dollars; `rounds` how many rounds it runs before it
+/// must be renewed; `terms` its numbers (name, unit, value), which `settle`
+/// reads with `input.term(name)`; `reads` the deal in plain words, one
+/// clause a line. All of it is kept in the module, as the custom section
+/// `na.deal`, for whoever signs it to read.
+///
+/// ```ignore
+/// // src/lib.rs of your agreement crate (crate-type = ["cdylib"])
+/// fn settle(input: &wire::SettleInput2W) -> wire::SettleOutputW {
+///     let mut out = input.out();
+///     out.pay(0, 1, input.term("fee"));
+///     out
+/// }
+/// switch_program_sdk::agreement_program! {
+///     settle: settle,
+///     world: 1,
+///     parties: ["AAA", "BBB"],
+///     links: [("AAA", "BBB", "transit")],
+///     cap: 60,
+///     rounds: 2,
+///     terms: [("fee", "$", 12.50)],
+///     reads: ["AAA pays BBB the fee every round."],
+/// }
+/// ```
+#[macro_export]
+macro_rules! agreement_program {
+    (
+        settle: $f:path,
+        world: $world:literal,
+        parties: [$($party:literal),* $(,)?],
+        links: [$(($x:literal, $y:literal, $kind:literal)),* $(,)?],
+        cap: $cap:literal,
+        rounds: $rounds:literal,
+        terms: [$(($term:literal, $unit:literal, $value:literal)),* $(,)?],
+        reads: [$($reads:literal),* $(,)?] $(,)?
+    ) => {
+        #[doc(hidden)]
+        const __AGREEMENT_FN: fn(&$crate::wire::SettleInput2W) -> $crate::wire::SettleOutputW = $f;
+
+        #[doc(hidden)]
+        mod __agreement_exports {
+            const PARTIES: &[&str] = &[$($party),*];
+            const TERMS: &[&str] = &[$($term),*];
+            const READS: &[&str] = &[$($reads),*];
+            const _: () = assert!(PARTIES.len() >= 2 && PARTIES.len() <= 4, "two to four parties");
+            const _: () = assert!(TERMS.len() <= 16, "at most 16 terms");
+            const _: () = assert!(READS.len() >= 1 && READS.len() <= 8, "one to eight lines of reads");
+            const _: () = assert!($world >= 1 && $world <= 4, "world: 1 to 4");
+            const _: () = assert!($rounds >= 1 && $rounds <= 9, "rounds: 1 to 9");
+
+            // The deal, one item per line, as the custom section `na.deal`.
+            const TEXT: &str = concat!(
+                "abi\t2\n",
+                "world\t", stringify!($world), "\n",
+                $("party\t", $party, "\n",)*
+                $("link\t", $x, "\t", $y, "\t", $kind, "\n",)*
+                "cap\t", stringify!($cap), "\n",
+                "rounds\t", stringify!($rounds), "\n",
+                $("term\t", $term, "\t", $unit, "\t", stringify!($value), "\n",)*
+                $("reads\t", $reads, "\n",)*
+            );
+            #[cfg(target_arch = "wasm32")]
+            #[unsafe(link_section = "na.deal")]
+            #[used]
+            static SECTION: [u8; TEXT.len()] = {
+                let mut bytes = [0u8; TEXT.len()];
+                let mut i = 0;
+                while i < bytes.len() {
+                    bytes[i] = TEXT.as_bytes()[i];
+                    i += 1;
+                }
+                bytes
+            };
+
+            thread_local! {
+                static BUF: ::core::cell::RefCell<::std::vec::Vec<u8>>
+                    = const { ::core::cell::RefCell::new(::std::vec::Vec::new()) };
+            }
+
+            #[unsafe(no_mangle)]
+            pub extern "C" fn settle_buffer(len: i32) -> i32 {
+                BUF.with(|cell| {
+                    let mut buf = cell.borrow_mut();
+                    *buf = ::std::vec![0u8; len.max(0) as usize];
+                    buf.as_mut_ptr() as i32
+                })
+            }
+
+            /// Returns where the postcard `SettleOutputW` is: its address
+            /// in the high 32 bits, its length in the low 32.
+            #[unsafe(no_mangle)]
+            pub extern "C" fn settle2(_ptr: i32, len: i32) -> i64 {
+                BUF.with(|cell| {
+                    let mut buf = cell.borrow_mut();
+                    let n = (len.max(0) as usize).min(buf.len());
+                    // A bad input traps, and the agreement pays nothing.
+                    let input: $crate::wire::SettleInput2W =
+                        $crate::__export::postcard::from_bytes(&buf[..n]).expect("agreement input");
+                    *buf = $crate::__export::postcard::to_allocvec(&super::__AGREEMENT_FN(&input)).expect("agreement output");
+                    ((buf.as_ptr() as u32 as i64) << 32) | buf.len() as i64
+                })
+            }
+        }
+    };
+}
+
 /// Wire a routing policy up as your switch program's policy exports (A4).
 /// `$rank` is a `fn(&wire::RankInputW) -> usize`: the index of the route
 /// your AS uses to a destination. `$announce` is a

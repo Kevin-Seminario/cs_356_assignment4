@@ -201,6 +201,33 @@ switch may send at most `switch_program.inject_bytes_per_s` of them a
 second (10,000 bytes, plenty for hellos on every port); the excess is
 dropped and the replay shows it.
 
+### Logging
+
+To write something down for later, return `actions::log_write(bytes)`
+from any switch. A4 has no logging switch: every switch writes to your
+AS's log, and `name_logging_switch()` does nothing. Each write becomes one
+line:
+
+```
+<t_ms> <switch> <message>
+```
+
+Here `t_ms` is the simulated time of the write, `switch` the switch's
+number, and `message` your bytes written one by one: printable ASCII
+as it is, `\` as `\\`, newline, carriage return and tab as `\n`, `\r`,
+`\t`, and any other byte as `\xNN` (two lowercase hex digits). Nothing is
+lost; in Python, `codecs.escape_decode(message)[0]` gives back your exact
+bytes.
+
+The log holds 64 KiB of your messages per world per run. A write that
+would go past that is lost whole, and the log's last line then says how
+many were lost. Writing costs nothing else: it is not a packet and does
+not count toward `inject_bytes_per_s`.
+
+You read your log on the website: one for each dry run, and one for each
+world in each round's results. The kit's simulator does not write the
+log.
+
 ## 4. Settlement programs
 
 Every agreement is a small wasm program that reads our meters after a

@@ -21,6 +21,8 @@ examples/a4_starter/         the starter switch program: start here (router.rs h
                              policy.rs the usual routing policy)
 examples/a4_tier1/           the Tier-1's program: part of the world, not yours
 examples/settlements/        settlement templates: transit, peering, paid_peering, backup
+examples/agreements/         agreement files to start from (Round 3 on): transit, peering,
+                             paid_peering, backup, ramp, club
 examples/hello_switch/  examples/learning_switch/   the A1 examples
 worlds/practice/             the practice world (practice.toml, a small ring) and full.toml (the
                              full ring you play on); failures/landslide.toml fails two crossings

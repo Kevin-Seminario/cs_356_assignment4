@@ -373,16 +373,94 @@ impl SettleInputW {
 
     /// The readings from `from` to `to`, summed over `epochs` and classes.
     pub fn sum(&self, from: u32, to: u32, epochs: impl Fn(u32) -> bool) -> ReadingW {
-        let mut t = ReadingW { from, to, ..Default::default() };
-        for r in self.readings.iter().filter(|r| r.from == from && r.to == to && epochs(r.epoch)) {
-            t.bytes += r.bytes;
-            t.on_time += r.on_time;
-            t.late += r.late;
-            t.lost += r.lost;
-            t.returned += r.returned;
-            t.returned_on_time += r.returned_on_time;
-        }
-        t
+        sum_readings(&self.readings, from, to, epochs)
+    }
+}
+
+fn sum_readings(readings: &[ReadingW], from: u32, to: u32, epochs: impl Fn(u32) -> bool) -> ReadingW {
+    let mut t = ReadingW { from, to, ..Default::default() };
+    for r in readings.iter().filter(|r| r.from == from && r.to == to && epochs(r.epoch)) {
+        t.bytes += r.bytes;
+        t.on_time += r.on_time;
+        t.late += r.late;
+        t.lost += r.lost;
+        t.returned += r.returned;
+        t.returned_on_time += r.returned_on_time;
+    }
+    t
+}
+
+/// The kinds of link an agreement makes between two of its parties, as the
+/// switch programs are told: peers, or the first buys transit or backup
+/// from the second.
+pub const A4_LINK_PEER: u8 = 1;
+pub const A4_LINK_TRANSIT: u8 = 2;
+pub const A4_LINK_BACKUP: u8 = 3;
+
+/// What an agreement program reads after a round (A4): the agreement's two
+/// to four parties, the links it makes, its terms, what the program kept
+/// from the round before, and the meter readings and failure log of the
+/// parties. A party is named by its index in `parties`.
+#[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub struct SettleInput2W {
+    /// The parties' AS ids.
+    pub parties: Vec<u32>,
+    /// (party x, party y, kind): an `A4_LINK_*` between two parties; for
+    /// transit and backup, x buys from y.
+    pub links: Vec<(u32, u32, u8)>,
+    /// The numbers filled in when the agreement was signed, by name, in
+    /// millionths (a price of $2.10 per Mb is 2_100_000).
+    pub terms: Vec<(String, i64)>,
+    /// Rounds this agreement has already settled: 0 in its first.
+    pub rounds_run: u32,
+    /// The `state` the program returned last round; empty in its first.
+    pub state: Vec<u8>,
+    pub epoch_ms: u64,
+    pub round_ms: u64,
+    /// Every reading between two of the parties (`from`, `to` are AS ids).
+    pub readings: Vec<ReadingW>,
+    /// The outages of every party.
+    pub outages: Vec<OutageW>,
+}
+
+impl SettleInput2W {
+    /// The term `name`, in millionths; 0 if the agreement has none.
+    pub fn term(&self, name: &str) -> i64 {
+        self.terms.iter().find(|(n, _)| n == name).map_or(0, |(_, v)| *v)
+    }
+
+    /// The AS id of party `i`.
+    pub fn as_id(&self, i: usize) -> u32 {
+        self.parties[i]
+    }
+
+    /// The readings from party `from` to party `to`, summed over `epochs`
+    /// and classes.
+    pub fn sum(&self, from: usize, to: usize, epochs: impl Fn(u32) -> bool) -> ReadingW {
+        sum_readings(&self.readings, self.parties[from], self.parties[to], epochs)
+    }
+
+    /// An output in which nobody pays and the state stays as it is.
+    pub fn out(&self) -> SettleOutputW {
+        SettleOutputW { pay: alloc::vec![0; self.parties.len()], state: self.state.clone() }
+    }
+}
+
+/// What an agreement program returns: `pay[i]` is what party `i` pays
+/// (negative: receives), in millionths of a dollar, summing to zero; and up
+/// to 4096 bytes of `state` to be handed back next round.
+#[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub struct SettleOutputW {
+    pub pay: Vec<i64>,
+    pub state: Vec<u8>,
+}
+
+impl SettleOutputW {
+    /// Party `from` pays party `to` `amount` millionths more (negative:
+    /// the other way).
+    pub fn pay(&mut self, from: usize, to: usize, amount: i64) {
+        self.pay[from] += amount;
+        self.pay[to] -= amount;
     }
 }
 

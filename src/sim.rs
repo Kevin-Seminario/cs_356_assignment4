@@ -72,6 +72,8 @@ pub struct Simulator {
     /// Bytes per second a switch program may inject, with a one-second
     /// burst (an A4 world's `inject_bytes_per_s`). `None`: no ration.
     pub inject_budget: Option<u64>,
+    /// A4: one program log per AS (see `crate::team_log::AsLogs`).
+    pub as_logs: Option<crate::team_log::AsLogs>,
     inject_buckets: HashMap<SwitchId, crate::observe::ExportBucket>,
 
     /// Set by a world with a `[harness]` section: the harness forwards
@@ -107,6 +109,7 @@ impl Simulator {
             observe_state: HashMap::new(),
             inject_budget: None,
             inject_buckets: HashMap::new(),
+            as_logs: None,
             harness: None,
             a4_info: std::collections::BTreeMap::new(),
             a4_meter: None,
@@ -1747,9 +1750,15 @@ impl Simulator {
 
     /// Name the logging switch or write to the team's log, at once: the
     /// log is the logging switch's own, so it costs no pipe and no budget.
-    /// Ignored unless the harness forwards.
+    /// With no harness, an A4 run's writes go to their AS's log instead.
     fn team_log_action(&mut self, switch_id: SwitchId, action: ControllerAction) {
         use crate::sim_log::LogEvent;
+        if self.harness.is_none() {
+            if let (Some(logs), ControllerAction::LogWrite { bytes }) = (self.as_logs.as_mut(), &action) {
+                logs.write(self.now.as_millis() as u64, switch_id, bytes);
+            }
+            return;
+        }
         let Some(h) = self.harness.as_mut() else { return };
         let switch = switch_id.raw();
         let event = match action {

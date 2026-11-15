@@ -9,8 +9,10 @@
 //! reads the meters (`settle_all`), and `statement` turns deliveries and
 //! settlements into money.
 
+pub mod deal;
 pub mod meter;
 pub mod policy;
+pub mod replay;
 #[cfg(feature = "wasm")]
 pub mod settle;
 
@@ -53,10 +55,18 @@ pub struct A4Spec {
     /// are never metered, so they are rationed instead.
     #[serde(default = "ten_k")]
     pub inject_bytes_per_s: u64,
+    /// Bytes of program log each AS may write per run; a write past it is
+    /// lost whole.
+    #[serde(default = "sixty_four_k")]
+    pub log_cap_bytes: usize,
 }
 
 fn one() -> f64 {
     1.0
+}
+
+fn sixty_four_k() -> usize {
+    64 << 10
 }
 
 fn ten_k() -> u64 {
@@ -92,15 +102,119 @@ pub struct Block {
 /// `program` (a settlement program, relative to the world file) returns on
 /// the meter readings, given `terms` (in dollars or plain numbers), and
 /// never more than `max` dollars either way.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///
+/// An agreement of two to four ASes names them in `parties` instead, with
+/// the `links` it makes (`[x, y, kind]`, AS ids; x buys from y) and `caps`,
+/// the most dollars each party pays in a round; its program is told how
+/// many rounds it has settled (`rounds_run`) and the `state` (hex) it
+/// returned in the last one. Without `parties` the agreement is the two
+/// ASes `a` and `b`, one link of `kind`, both capped at `max`.
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct Agreement {
+    #[serde(default)]
     pub kind: String,
+    #[serde(default)]
     pub a: u32,
+    #[serde(default)]
     pub b: u32,
     pub program: String,
     #[serde(default)]
     pub terms: BTreeMap<String, f64>,
+    #[serde(default)]
     pub max: f64,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parties: Vec<u32>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub links: Vec<(u32, u32, String)>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub caps: Vec<f64>,
+    #[serde(default, skip_serializing_if = "is_zero")]
+    pub rounds_run: u32,
+    #[serde(default, skip_serializing_if = "String::is_empty")]
+    pub state: String,
+}
+
+fn is_zero(n: &u32) -> bool {
+    *n == 0
+}
+
+fn link_kind(name: &str) -> Option<u8> {
+    match name {
+        "peer" => Some(wire::A4_LINK_PEER),
+        "transit" => Some(wire::A4_LINK_TRANSIT),
+        "backup" => Some(wire::A4_LINK_BACKUP),
+        _ => None,
+    }
+}
+
+pub fn hex(bytes: &[u8]) -> String {
+    bytes.iter().map(|b| format!("{b:02x}")).collect()
+}
+
+fn unhex(s: &str) -> Option<Vec<u8>> {
+    if s.len() % 2 != 0 || !s.is_ascii() {
+        return None;
+    }
+    (0..s.len()).step_by(2).map(|i| u8::from_str_radix(&s[i..i + 2], 16).ok()).collect()
+}
+
+impl Agreement {
+    pub fn parties(&self) -> Vec<u32> {
+        if self.parties.is_empty() { vec![self.a, self.b] } else { self.parties.clone() }
+    }
+
+    /// The links it makes: (x, y, kind), AS ids.
+    pub fn links(&self) -> impl Iterator<Item = (u32, u32, &str)> {
+        let old = self.parties.is_empty().then(|| (self.a, self.b, self.kind.as_str()));
+        old.into_iter().chain(self.links.iter().map(|(x, y, kind)| (*x, *y, kind.as_str())))
+    }
+
+    /// The most each party pays in a round, in dollars.
+    pub fn caps(&self) -> Vec<f64> {
+        if self.parties.is_empty() { vec![self.max, self.max] } else { self.caps.clone() }
+    }
+
+    /// Whether the agreement is well formed. One without `parties` is as
+    /// it always was.
+    pub fn check(&self) -> Result<(), String> {
+        let p = &self.parties;
+        if p.is_empty() {
+            return if self.links.is_empty() && self.caps.is_empty() { Ok(()) } else { Err("links or caps without parties".into()) };
+        }
+        if !(2..=4).contains(&p.len()) || p.iter().collect::<BTreeSet<_>>().len() != p.len() {
+            return Err("needs two to four different parties".into());
+        }
+        if self.caps.len() != p.len() || self.caps.iter().any(|c| !(*c >= 0.0)) {
+            return Err("needs a cap of $0 or more for each party".into());
+        }
+        for (x, y, kind) in &self.links {
+            if x == y || !p.contains(x) || !p.contains(y) {
+                return Err(format!("the link {x}-{y} is not between two of its parties"));
+            }
+            if link_kind(kind).is_none() {
+                return Err(format!("unknown kind of link: {kind}"));
+            }
+        }
+        unhex(&self.state).map(|_| ()).ok_or_else(|| "state is not hex".into())
+    }
+
+    /// What its program reads, given a run's readings and outages of its
+    /// parties. Call `check` first.
+    pub fn input(&self, epoch_ms: u64, round_ms: u64, readings: Vec<wire::ReadingW>, outages: Vec<wire::OutageW>) -> wire::SettleInput2W {
+        let parties = self.parties();
+        let index = |x: u32| parties.iter().position(|p| *p == x).unwrap_or(0) as u32;
+        wire::SettleInput2W {
+            links: self.links().map(|(x, y, kind)| (index(x), index(y), link_kind(kind).unwrap_or(0))).collect(),
+            parties,
+            terms: self.terms.iter().map(|(k, v)| (k.clone(), (v * 1e6).round() as i64)).collect(),
+            rounds_run: self.rounds_run,
+            state: unhex(&self.state).unwrap_or_default(),
+            epoch_ms,
+            round_ms,
+            readings,
+            outages,
+        }
+    }
 }
 
 /// One app's traffic: `rate_mbps` spread evenly over `to`, all of class
@@ -211,6 +325,11 @@ impl A4Spec {
         Ok(app)
     }
 
+    /// Every agreement's links, in file order.
+    fn links(&self) -> impl Iterator<Item = (u32, u32, &str)> {
+        self.agreements.iter().flat_map(Agreement::links)
+    }
+
     fn rel(&self, x: u32, y: u32) -> Option<Rel> {
         if x == self.tier1_as {
             return Some(Rel::Tier1Customer);
@@ -218,7 +337,7 @@ impl A4Spec {
         if y == self.tier1_as {
             return Some(Rel::Tier1);
         }
-        let main = self.agreements.iter().find_map(|g| match (g.kind.as_str(), g.a == x && g.b == y, g.a == y && g.b == x) {
+        let main = self.links().find_map(|(a, b, kind)| match (kind, a == x && b == y, a == y && b == x) {
             ("peer", true, _) | ("peer", _, true) => Some(Rel::Peer),
             ("transit", true, _) => Some(Rel::Provider),
             ("transit", _, true) => Some(Rel::Customer),
@@ -230,7 +349,7 @@ impl A4Spec {
     /// A backup agreement between x and y, as x sees it. A pair may hold
     /// one beside a peering or transit agreement.
     fn backup(&self, x: u32, y: u32) -> Option<Rel> {
-        self.agreements.iter().find_map(|g| match (g.kind.as_str(), g.a == x && g.b == y, g.a == y && g.b == x) {
+        self.links().find_map(|(a, b, kind)| match (kind, a == x && b == y, a == y && b == x) {
             ("backup", true, _) => Some(Rel::BackupProvider),
             ("backup", _, true) => Some(Rel::BackupCustomer),
             _ => None,
@@ -369,9 +488,17 @@ pub fn prepare(
     policies: &mut BTreeMap<u32, Box<dyn policy::Policy>>,
 ) -> Result<Routing, WorldError> {
     let spec = world.a4.as_ref().ok_or_else(|| WorldError::Invalid("not an A4 world".into()))?;
+    for g in &spec.agreements {
+        let known = g.parties.iter().all(|p| spec.ases.iter().any(|a| a.id == *p));
+        g.check()
+            .and_then(|_| if known { Ok(()) } else { Err("a party is not an AS of this world".into()) })
+            .map_err(|e| WorldError::Invalid(format!("agreement of {:?}: {e}", g.parties())))?;
+    }
     let owner = owners(world);
     let tier1 = spec.tier1_as;
     sim.inject_budget = Some(spec.inject_bytes_per_s);
+    let log_owner = owner.iter().map(|(&s, &a)| (crate::types::SwitchId::new(s), a)).collect();
+    sim.as_logs = Some(crate::team_log::AsLogs::new(spec.log_cap_bytes, log_owner));
 
     // Border ports and AS adjacency.
     let mut borders: BTreeMap<u32, Vec<(u32, u16, u32, u32)>> = BTreeMap::new(); // as -> (switch, port, peer_as, peer_switch)
@@ -505,29 +632,116 @@ pub fn prepare(
     Ok(routing)
 }
 
-/// What one agreement's settlement program said: `a` pays `b` `amount`
-/// dollars (negative: `b` pays `a`), or why it paid nothing.
+/// What one agreement's program said: what each party pays, in dollars
+/// (negative: receives), and the state it keeps for the next round (hex);
+/// or why nobody paid, and the state it had.
 #[derive(Debug, Clone, Serialize)]
 pub struct Settled {
-    pub a: u32,
-    pub b: u32,
-    pub amount: f64,
+    pub parties: Vec<u32>,
+    pub pay: Vec<f64>,
+    pub state: String,
     pub error: Option<String>,
 }
 
 /// Each agreement's input, in the order of `spec.agreements`: its terms,
-/// the readings between its two ASes at the real rates, and the outages of
-/// both ASes' links in a run of `round_ms`.
+/// the readings between its parties at the real rates, and the outages of
+/// its parties' links in a run of `round_ms`.
 pub fn settle_inputs(
     world: &World,
     sim: &Simulator,
     failures: Option<&crate::failures::Schedule>,
     round_ms: u64,
-) -> Vec<wire::SettleInputW> {
+) -> Vec<wire::SettleInput2W> {
+    let spec = world.a4.as_ref().expect("an A4 world");
+    let outages = outages(world, failures, round_ms);
+    spec.agreements
+        .iter()
+        .map(|g| {
+            let p = g.parties();
+            g.input(
+                spec.epoch_ms,
+                round_ms,
+                readings(world, sim, |x, y| x != y && p.contains(&x) && p.contains(&y)),
+                outages.iter().filter(|o| p.contains(&o.as_id)).copied().collect(),
+            )
+        })
+        .collect()
+}
+
+/// One AS's meter readings and outages, as a settlement program sees them:
+/// every reading to or from the AS, and the outages of it and its
+/// neighbours.
+#[derive(Debug, Clone, Serialize)]
+pub struct AsReadings {
+    pub as_id: u32,
+    pub epoch_ms: u64,
+    pub round_ms: u64,
+    pub readings: Vec<wire::ReadingW>,
+    pub outages: Vec<wire::OutageW>,
+}
+
+/// Every AS's readings, the Tier-1 included, by AS id.
+pub fn as_readings(
+    world: &World,
+    sim: &Simulator,
+    failures: Option<&crate::failures::Schedule>,
+    round_ms: u64,
+) -> Vec<AsReadings> {
+    let spec = world.a4.as_ref().expect("an A4 world");
+    let owner = owners(world);
+    let outages = outages(world, failures, round_ms);
+    let ids: BTreeSet<u32> = spec.ases.iter().map(|a| a.id).chain([spec.tier1_as]).collect();
+    ids.into_iter()
+        .map(|n| {
+            let mut near = BTreeSet::from([n]);
+            for l in &world.links {
+                let (x, y) = (owner[&l.a], owner[&l.b]);
+                if x == n || y == n {
+                    near.extend([x, y]);
+                }
+            }
+            AsReadings {
+                as_id: n,
+                epoch_ms: spec.epoch_ms,
+                round_ms,
+                readings: readings(world, sim, |x, y| x == n || y == n),
+                outages: outages.iter().filter(|o| near.contains(&o.as_id)).copied().collect(),
+            }
+        })
+        .collect()
+}
+
+/// The meter's readings between the pairs `keep` takes, at the real rates.
+fn readings(world: &World, sim: &Simulator, keep: impl Fn(u32, u32) -> bool) -> Vec<wire::ReadingW> {
+    let scale = world.a4.as_ref().expect("an A4 world").mb_scale;
+    let real = |b: u64| (b as f64 / scale).round() as u64;
+    sim.a4_meter
+        .as_ref()
+        .map(|m| &m.readings)
+        .into_iter()
+        .flatten()
+        .filter(|((x, y, _, _), _)| keep(*x, *y))
+        .map(|(&(from, to, epoch, class), r)| wire::ReadingW {
+            from,
+            to,
+            epoch,
+            class,
+            bytes: real(r.bytes),
+            on_time: real(r.on_time),
+            late: real(r.late),
+            lost: real(r.lost),
+            returned: real(r.returned),
+            returned_on_time: real(r.returned_on_time),
+        })
+        .collect()
+}
+
+/// Each failure in the schedule as an outage of the AS at either end, cut
+/// at `round_ms`.
+fn outages(world: &World, failures: Option<&crate::failures::Schedule>, round_ms: u64) -> Vec<wire::OutageW> {
     let spec = world.a4.as_ref().expect("an A4 world");
     let owner = owners(world);
     let hubs: BTreeSet<u32> = spec.ases.iter().flat_map(|a| a.blocks.iter().map(|b| b.switch)).collect();
-    let readings = sim.a4_meter.as_ref().map(|m| &m.readings);
     let mut outages: Vec<wire::OutageW> = Vec::new();
     for f in failures.map(|s| s.failures.as_slice()).unwrap_or_default() {
         let [x, y] = f.link;
@@ -544,40 +758,12 @@ pub fn settle_inputs(
             outages.push(wire::OutageW { as_id, what, start_ms, end_ms });
         }
     }
-    let real = |b: u64| (b as f64 / spec.mb_scale).round() as u64;
-    spec.agreements
-        .iter()
-        .map(|g| wire::SettleInputW {
-            a: g.a,
-            b: g.b,
-            terms: g.terms.iter().map(|(k, v)| (k.clone(), (v * 1e6).round() as i64)).collect(),
-            epoch_ms: spec.epoch_ms,
-            round_ms,
-            readings: readings
-                .into_iter()
-                .flatten()
-                .filter(|((x, y, _, _), _)| (*x, *y) == (g.a, g.b) || (*x, *y) == (g.b, g.a))
-                .map(|(&(from, to, epoch, class), r)| wire::ReadingW {
-                    from,
-                    to,
-                    epoch,
-                    class,
-                    bytes: real(r.bytes),
-                    on_time: real(r.on_time),
-                    late: real(r.late),
-                    lost: real(r.lost),
-                    returned: real(r.returned),
-                    returned_on_time: real(r.returned_on_time),
-                })
-                .collect(),
-            outages: outages.iter().filter(|o| o.as_id == g.a || o.as_id == g.b).copied().collect(),
-        })
-        .collect()
+    outages
 }
 
 /// Run every agreement's settlement program. `modules` holds each
-/// agreement's program by its `program` path. An amount is capped at the
-/// agreement's `max` either way.
+/// agreement's program by its `program` path. No party pays more than its
+/// cap (see `settle::settle`).
 #[cfg(feature = "wasm")]
 pub fn settle_all(
     world: &World,
@@ -592,15 +778,15 @@ pub fn settle_all(
         .iter()
         .zip(settle_inputs(world, sim, failures, round_ms))
         .map(|(g, input)| {
-            let result = match modules.get(&g.program) {
-                Some(m) => settle::run(m, &input, &limits),
-                None => Err(format!("no program {}", g.program)),
+            let result = g
+                .check()
+                .and_then(|_| modules.get(&g.program).ok_or_else(|| format!("no program {}", g.program)))
+                .and_then(|m| settle::settle(m, &input, &g.caps(), &limits));
+            let (pay, state, error) = match result {
+                Ok((pay, state)) => (pay, hex(&state), None),
+                Err(why) => (vec![0.0; input.parties.len()], g.state.clone(), Some(why)),
             };
-            let (amount, error) = match result {
-                Ok(n) => ((n as f64 / 1e6).clamp(-g.max, g.max), None),
-                Err(why) => (0.0, Some(why)),
-            };
-            Settled { a: g.a, b: g.b, amount, error }
+            Settled { parties: input.parties, pay, state, error }
         })
         .collect()
 }
@@ -634,6 +820,9 @@ pub struct Statement {
     pub routes_unsettled: bool,
     /// This AS's routing policy failed, so it used the usual one; why.
     pub policy_failed: Option<String>,
+    /// One of this AS's switch programs stopped during the run; why (the
+    /// lowest-numbered switch's reason).
+    pub program_failed: Option<String>,
 }
 
 /// Every AS's statement from a finished run, with the settlements the
@@ -732,20 +921,25 @@ pub fn statement(world: &World, sim: &Simulator, settled: &[Settled]) -> Vec<Sta
     }
     let mb = |x: u32, y: u32| pair_mb.get(&(x.min(y), x.max(y))).copied().unwrap_or(0.0);
     for s in settled {
+        let each = || s.parties.iter().copied().zip(s.pay.iter().copied());
         if let Some(why) = &s.error {
-            for (me, other) in [(s.a, s.b), (s.b, s.a)] {
+            for (me, other) in each().flat_map(|(me, _)| each().map(move |(other, _)| (me, other))).filter(|(me, other)| me != other) {
                 if let Some(st) = out.get_mut(&me) {
                     st.failed.insert(other, why.clone());
                 }
             }
         }
-        let (payer, payee, amount) = if s.amount >= 0.0 { (s.a, s.b, s.amount) } else { (s.b, s.a, -s.amount) };
-        if amount != 0.0 {
-            if let Some(st) = out.get_mut(&payer) {
-                *st.paid_to.entry(payee).or_default() += amount;
-            }
-            if let Some(st) = out.get_mut(&payee) {
-                *st.paid_by.entry(payer).or_default() += amount;
+        // Each payer pays each receiver its share of all that is received.
+        let received: f64 = each().filter(|(_, p)| *p < 0.0).map(|(_, p)| -p).sum();
+        for (payer, paid) in each().filter(|(_, p)| *p > 0.0) {
+            for (payee, got) in each().filter(|(_, p)| *p < 0.0) {
+                let amount = paid * (-got / received);
+                if let Some(st) = out.get_mut(&payer) {
+                    *st.paid_to.entry(payee).or_default() += amount;
+                }
+                if let Some(st) = out.get_mut(&payee) {
+                    *st.paid_by.entry(payer).or_default() += amount;
+                }
             }
         }
     }

@@ -1,6 +1,11 @@
 # World 3 regional transit buyer offers
 
 Five separate one-round agreement files are ready for human review and upload.
+They are a pilot inventory, not evidence that signing all five improves the
+live score. Review each buyer's alternative routes, likely bilateral volume,
+and the supplier routes we can actually retain. The $400 payments in local
+starter-opponent models are cap-limited; they are not forecasts of live
+receipts or proof of a $2,000 gain.
 Each buyer pays jknetwork $1 per Mb crossing their bilateral link in either
 direction, capped at $400 per round. The agreement renews for one round unless
 either party declines. It opens a transit relationship; the switch's routing

@@ -1,5 +1,17 @@
 # Worlds 1, 2, and 4: proposed regional transit buyers
 
+**Strategy review, November 16:** These compiled files are experiment
+artifacts, not a recommendation to send every offer. In particular, hold the
+two World 1 AI transit files. World 1 was our strongest live Round 2 world
+(utility $2,157.60; score about 82), while the modeled transit gains rely on
+each buyer paying the $400 cap. Their actual Round 2 bilateral traffic would
+have paid only about $143 combined at the proposed rate. No World 1
+agreement currently renews, so restoring worthwhile existing routes is a
+more urgent and better-supported task than converting its two AI peers.
+Worlds 2 and 4 candidates also need live signed-status and bilateral-volume
+checks before use. The regional bridge remains an unproven World 3 pilot,
+not a four-world rollout or a demonstrated $2,000 utility opportunity.
+
 These are five **separate candidate offers**, with upload files and matching source
 in the world subfolders. Each buyer pays jknetwork $1/Mb for traffic metered
 across their bilateral link in either direction, capped at $400 per round.

@@ -12,6 +12,12 @@ The bridge requires active, mutually signed routes into sector 4. For Round 3, v
 
 Before offering the AS 9 transit file, confirm there is no overlapping free peering between AS 9 and AS 15 for the same round. The added service must be genuine. The new file needs both parties' signatures and begins at the next cutoff. An offer or unsigned file changes nothing.
 
+### Prepared World 3 peer renewals
+
+Three separate one-round, $0-payment peer files are ready under `examples/agreements/w3_peer_lucky_comets/`, `w3_peer_spatulameow/`, and `w3_peer_networkarena/`. Each names jknetwork and the exact partner pseudonym from the Round 2 border readings. The one-round term renews for one unless either party declines; it avoids committing to several rounds before the bridge's first live result. Claude 1 has already offered a separate peer file, so review that offer instead of proposing a duplicate.
+
+The compiled peer files were tested together in the same World 3 full-ring practice scenario as the bridge contract. Replacing the three old-form peer templates with the new files left AS 9, AS 15, and the three peers' modeled utility exactly unchanged; each new file settled at $0 with no error, and no switch program stopped. This verifies the file format and the modeled route relationship, not future signatures or live traffic. None of these files affects Round 3 until the human uploader proposes it and the other party signs.
+
 ## Switch policy
 
 `examples/a4_regional_bridge/src/policy.rs` changes only AS 15's announcement to AS 9 when AS 9 is a customer. It exports routes learned from ourselves, customers, or peers. It withholds routes learned from providers or backup relationships, whose marginal cost may exceed the pilot price. Ranking, every other export, and packet forwarding remain as in the submitted switch. A route that is announced is a promise to carry traffic; the switch does not discriminate by traffic class after making that promise.

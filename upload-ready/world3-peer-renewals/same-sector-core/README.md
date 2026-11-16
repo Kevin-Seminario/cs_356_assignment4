@@ -1,9 +1,11 @@
-# World 3 same-sector peering renewals
+# World 3 same-sector peer candidates
 
-These two independent agreement files preserve our direct peer routes to the
-other World 3 sector-3 teams. They are ready for human upload on the Agreements
-page. Attach the matching `.rs` source with each `.wasm` so the partner can
-review what it signs.
+These two independent agreement files can preserve direct routes to the
+other World 3 sector-3 teams. They are candidates for the paid regional
+transit plan, not automatic renewals. Keep each link if it supplies useful
+destinations to a distinct paying buyer or has measured direct value.
+If selected, a human can upload its `.wasm` on the Agreements page and attach
+the matching `.rs` source so the partner can review what it signs.
 
 - `jalebistreet.wasm` and `jalebistreet.rs`: jknetwork with JalebiStreet (AS 13).
 - `stray-otters.wasm` and `stray-otters.rs`: jknetwork with Stray Otters (AS 16).

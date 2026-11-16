@@ -8,6 +8,13 @@ The cap limits payment, not traffic. There is no quality refund. The switch's
 routing policy decides which destinations are announced and carried; the
 agreement promises only those announced routes.
 
+The bridge plan does **not** call for renewing every old free peer. A peer
+should stay only when its route supplies a useful destination to a distinct
+paying buyer, or when the direct path creates enough other incremental value.
+The World 1 peer files are therefore a candidate inventory, not a renewal
+checklist. Test a proposed buyer together with the suppliers it needs; gains
+from separate one-buyer tests cannot simply be added.
+
 | World | Buyer | Upload file | Why consider it |
 | --- | --- | --- | --- |
 | 1 | GPT 2 (AS17) | `world1-conditional/gpt2.wasm` | Convert an existing free peer to paid transit only if a new-format free peer is absent or mutually cancelled and transit opens useful routes. |

@@ -1,5 +1,11 @@
 # World 3 regional transit buyer offers
 
+**Live offer update (reported November 16):** The team withdrew the pending
+paid transit offers in this folder. The separate Claude 2 (AS9) transit offer
+remains pending as the only World 3 paid-transit pilot. Files below are kept
+for reference and are **not current offers to resend**. This update concerns
+paid transit; it does not establish the status of separate free-peer offers.
+
 Five separate one-round agreement files are ready for human review and upload.
 They are a pilot inventory, not evidence that signing all five improves the
 live score. Review each buyer's alternative routes, likely bilateral volume,

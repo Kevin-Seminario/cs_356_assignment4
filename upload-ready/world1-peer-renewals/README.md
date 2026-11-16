@@ -35,4 +35,18 @@ cancel a valuable route merely to create a paid-buyer candidate.
 
 Round 2 traffic figures come from `docs/report/evidence/round-2/readings-w1-r2.csv`; the team names and local AS numbers were checked against that file and the read-only World 1 Agreements page. The eight core files were built for `wasm32-unknown-unknown` and run together in the kit's 32-AS practice world: all eight settled at $0 with no agreement errors and no stopped switch programs. Adding the optional RedBull file produced the same result for all nine agreements. This checks file execution, not whether each counterparty will sign or how the live Round 3 world will perform.
 
+**Peer versus paid-customer check:** A customer also supplies its own route,
+so the bridge strategy does not inherently require these partners to remain
+peers. We tested converting Jumbo Comets, Packet Lanterns, and dinnyrob19
+individually from free peers to $1/Mb transit customers in the matched storm
+model, with the old RedBull transit removed and the two AI seats left as
+peers. Each conversion collected the modeled $400 cap but lowered jknetwork
+utility by about $493, $493, and $418, respectively, relative to keeping
+that partner a peer. The modeled loss came chiefly from lower company value,
+not higher Tier-1 fees. In the real Round 2 meter, their bilateral traffic
+was only about 145-150 Mb each, far below the model's billed $400. This is
+directional evidence to *test* these three as supplier peers before asking
+them to buy transit, not proof of their live behavior. The choice remains
+per partner and depends on the full signed agreement set.
+
 Source crates live under `examples/agreements/w1_peer_*/`. Rebuild and refresh the copied `.wasm` and `.rs` files if a source crate changes.

@@ -1,0 +1,398 @@
+[
+  {
+    "world": 1,
+    "partner": "GPT 2",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w1_peer_gpt_2",
+    "file": "w1-peer-gpt-2.wasm",
+    "sha256": "74ab9219b100ceebb35d77dc9f2fa0905a1a394f43f2b8eb1fa685bf74df5bb9"
+  },
+  {
+    "world": 1,
+    "partner": "RedBull",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w1_peer_redbull",
+    "file": "w1-peer-redbull.wasm",
+    "sha256": "98b5ee6a9285aa389870b90efb4933be5ee0c925159aff068be638017de0d2a2"
+  },
+  {
+    "world": 1,
+    "partner": "spatulameow",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w1_peer_spatulameow",
+    "file": "w1-peer-spatulameow.wasm",
+    "sha256": "a189b807cbfd41e4ea3613430a32ceb0c6787010d6dbc63ded1bcf4dd9e71238"
+  },
+  {
+    "world": 1,
+    "partner": "fastnetworkteam",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w1_peer_fastnetworkteam",
+    "file": "w1-peer-fastnetworkteam.wasm",
+    "sha256": "91f78fdf0022dcbededd082f9c51c4ebe5f9623777b2525f9f58ecd584a1766f"
+  },
+  {
+    "world": 1,
+    "partner": "Jumbo Comets",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w1_peer_jumbo_comets",
+    "file": "w1-peer-jumbo-comets.wasm",
+    "sha256": "1105ae310a4cab739d73b13f839548030c6f8acd9143eec693e3e0b71602af05"
+  },
+  {
+    "world": 1,
+    "partner": "Packet Lanterns",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w1_peer_packet_lanterns",
+    "file": "w1-peer-packet-lanterns.wasm",
+    "sha256": "ec511169042b9b7472c4cb732c1076e5f55a93df83327f1ab8616d41b1f1a10c"
+  },
+  {
+    "world": 1,
+    "partner": "dinnyrob19",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w1_peer_dinnyrob19",
+    "file": "w1-peer-dinnyrob19.wasm",
+    "sha256": "e3bc3937ce7f29700dbca7fc1fae18c41c89890431b12df435f42002ab1ead01"
+  },
+  {
+    "world": 1,
+    "partner": "GPT 1",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w1_peer_gpt_1",
+    "file": "w1-peer-gpt-1.wasm",
+    "sha256": "62c6852998a1c60ceaecefada6491647549bb8164ef4caadf7392805c73fc9e1"
+  },
+  {
+    "world": 1,
+    "partner": "Lucky Comets",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w1_peer_lucky_comets",
+    "file": "w1-peer-lucky-comets.wasm",
+    "sha256": "242fefc2bb0feb8b189c24e1abb91ebe41e3d8b4509fa8b6d4cfa7463b686caa"
+  },
+  {
+    "world": 1,
+    "partner": "Network Champions",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w1_peer_network_champions",
+    "file": "w1-peer-network-champions.wasm",
+    "sha256": "8466b57f09ac00f1ac9bc025a78ed3a7c4dbac72f31cc1e253f4184cfaff13ca"
+  },
+  {
+    "world": 1,
+    "partner": "bevo_baddies",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w1_peer_bevo_baddies",
+    "file": "w1-peer-bevo-baddies.wasm",
+    "sha256": "d35d7d37c75afb8a43ec6e0b76aafec370d0be0d12aa751e10649008b2c13f61"
+  },
+  {
+    "world": 2,
+    "partner": "Claude 2",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w2_peer_claude_2",
+    "file": "w2-peer-claude-2.wasm",
+    "sha256": "fdddfc6abed31ecc3f9b6a17a2cf907917adf1d57094a0d7c29ca6efbed995cf"
+  },
+  {
+    "world": 2,
+    "partner": "Bmobile",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w2_peer_bmobile",
+    "file": "w2-peer-bmobile.wasm",
+    "sha256": "2f2c09edfed2f168a1ee31bc7674496f3612773568919e403a24a597031bd1bc"
+  },
+  {
+    "world": 2,
+    "partner": "123455",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w2_peer_123455",
+    "file": "w2-peer-123455.wasm",
+    "sha256": "bb9212bb5b361ccf9c76bd465198cc9b3ade71e2b9aef8c9febbdee2116c0499"
+  },
+  {
+    "world": 2,
+    "partner": "Lucky Herons",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w2_peer_lucky_herons",
+    "file": "w2-peer-lucky-herons.wasm",
+    "sha256": "75d6fca463a172eed49c203c71f484fa1cee40d5c7a7239ca2879fa96f2e623d"
+  },
+  {
+    "world": 2,
+    "partner": "Lucky Comets",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w2_peer_lucky_comets",
+    "file": "w2-peer-lucky-comets.wasm",
+    "sha256": "8779a7c89e69a448c55b5d80729f5673e5924d842d63c8670123e24b2c853174"
+  },
+  {
+    "world": 2,
+    "partner": "fastnetworkteam",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w2_peer_fastnetworkteam",
+    "file": "w2-peer-fastnetworkteam.wasm",
+    "sha256": "1ca96fa9e70119ed1ce5ffd992ff8a100fa327caffae840204678c102a0e29a7"
+  },
+  {
+    "world": 2,
+    "partner": "Rapid Otters",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w2_peer_rapid_otters",
+    "file": "w2-peer-rapid-otters.wasm",
+    "sha256": "d071ca94825b4a5c38050049b43bcb888984925882a7f7464a40b37fc805c569"
+  },
+  {
+    "world": 2,
+    "partner": "network",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w2_peer_network",
+    "file": "w2-peer-network.wasm",
+    "sha256": "f256a0ce7abe01d7cc119248bc993c4b0098a99505b4ce7f3454f5874555298e"
+  },
+  {
+    "world": 3,
+    "partner": "Network Champions",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w3_peer_network_champions",
+    "file": "w3-peer-network-champions.wasm",
+    "sha256": "bfdcef583248250c90b2ef30cb4074f5172a5587db24ea24992df3d5b39048c9"
+  },
+  {
+    "world": 3,
+    "partner": "fastnetworkteam",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w3_peer_fastnetworkteam",
+    "file": "w3-peer-fastnetworkteam.wasm",
+    "sha256": "76e34484a0bc5dc5d553717f9be24c5b21b65b581120f26b24c50c4fec3efd81"
+  },
+  {
+    "world": 3,
+    "partner": "JalebiStreet",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w3_peer_jalebi_street",
+    "file": "w3-peer-jalebi-street.wasm",
+    "sha256": "06e220f77ab88ce0749ba6a4ca74d4382d43182f8bf6c2d48068f29c04c9330c"
+  },
+  {
+    "world": 3,
+    "partner": "Stray Otters",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w3_peer_stray_otters",
+    "file": "w3-peer-stray-otters.wasm",
+    "sha256": "a89fafaaf80db4c6afdf46779e89e696c374febb5d8d54a0e5d0494f48c2c855"
+  },
+  {
+    "world": 3,
+    "partner": "Claude 1",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w3_peer_claude_1",
+    "file": "w3-peer-claude-1.wasm",
+    "sha256": "d7a9dab694a038bd480a2d3b8e5508ee014f1eb1e8e2d3ba579d2e3afeb5734c"
+  },
+  {
+    "world": 3,
+    "partner": "Lucky Comets",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w3_peer_lucky_comets",
+    "file": "w3-peer-lucky-comets.wasm",
+    "sha256": "763ce7491c000c7b31a1c1f4a820eb48bcc9291e7a130f7e25cbac79c983848c"
+  },
+  {
+    "world": 3,
+    "partner": "spatulameow",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w3_peer_spatulameow",
+    "file": "w3-peer-spatulameow.wasm",
+    "sha256": "75370a0fca0c06096ec4f31961dc8814e03304a6f9c7d08c82cf4a094ce02364"
+  },
+  {
+    "world": 3,
+    "partner": "networkarena",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w3_peer_networkarena",
+    "file": "w3-peer-networkarena.wasm",
+    "sha256": "e10aedff6c8fde731707eadc64496aa55a22c2f701b4773785d2e42d594f5fa5"
+  },
+  {
+    "world": 4,
+    "partner": "RedBull",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w4_peer_redbull",
+    "file": "w4-peer-redbull.wasm",
+    "sha256": "4471f3cfad181db2d11741bdb0c20e891b41ec9a8677c5cb5ec88efdea5a0ab4"
+  },
+  {
+    "world": 4,
+    "partner": "GPT 1",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w4_peer_gpt_1",
+    "file": "w4-peer-gpt-1.wasm",
+    "sha256": "5b043a8201eba6ba827d91f896f147679e21b0c51bf0b0f178e4e256c5ba8b41"
+  },
+  {
+    "world": 4,
+    "partner": "Rapid Otters",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w4_peer_rapid_otters",
+    "file": "w4-peer-rapid-otters.wasm",
+    "sha256": "0f96de5204f1cfe341d1484a870be93ac6170dc45d23091ab00b5ce86f320bfe"
+  },
+  {
+    "world": 4,
+    "partner": "123455",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w4_peer_123455",
+    "file": "w4-peer-123455.wasm",
+    "sha256": "dc63e0e18d51e1fcbc2ffd0da484a6f36d0c147f9e667f45a0913b0895674cee"
+  },
+  {
+    "world": 4,
+    "partner": "dinnyrob19",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w4_peer_dinnyrob19",
+    "file": "w4-peer-dinnyrob19.wasm",
+    "sha256": "984e6d5cedf78909cd0a150be7f67a85698cb7c3a6af5c72e2ab8146514e8d3c"
+  },
+  {
+    "world": 4,
+    "partner": "Toyotathon",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w4_peer_toyotathon",
+    "file": "w4-peer-toyotathon.wasm",
+    "sha256": "0eec4acb0aecc92886f35d1a0845d1330082ef2aa34955aa95d74c284658b446"
+  },
+  {
+    "world": 4,
+    "partner": "Anycast Badgers",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w4_peer_anycast_badgers",
+    "file": "w4-peer-anycast-badgers.wasm",
+    "sha256": "ddfccd4a20a9a04c3f041f6e377fe99aaa9db7ccae87ebfa46ce0b4087a51833"
+  },
+  {
+    "world": 4,
+    "partner": "networkarena",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w4_peer_networkarena",
+    "file": "w4-peer-networkarena.wasm",
+    "sha256": "0ce567d1f6515e9b451c7aaa256f2d4eb80a42944ac2e032c246d1e81cc92ae9"
+  },
+  {
+    "world": 4,
+    "partner": "Claude 1",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w4_peer_claude_1",
+    "file": "w4-peer-claude-1.wasm",
+    "sha256": "52654eebbf71a95ffa7802995d31e7f8da5f4ab6caeb1690e673a3fc2b89568e"
+  },
+  {
+    "world": 4,
+    "partner": "Packet Lanterns",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w4_peer_packet_lanterns",
+    "file": "w4-peer-packet-lanterns.wasm",
+    "sha256": "df9e6bd2894c36f3e7ba3af8ed25d2afb5ae88df8a2f89c003821d6042ac71d5"
+  },
+  {
+    "world": 4,
+    "partner": "Lossless Pilots",
+    "kind": "peer",
+    "group": "renewal",
+    "crate": "w4_peer_lossless_pilots",
+    "file": "w4-peer-lossless-pilots.wasm",
+    "sha256": "fef21e7df7568429500cdcf9597a49556385f9a399019d38416189e00ddc4455"
+  },
+  {
+    "world": 2,
+    "partner": "Lossless Pilots",
+    "kind": "peer",
+    "group": "optional",
+    "crate": "w2_peer_lossless_pilots",
+    "file": "w2-peer-lossless-pilots.wasm",
+    "sha256": "e54b45fdc9de303c13c868a3dcc5a0601db88ec643d16f92e7f324bb2534833e"
+  },
+  {
+    "world": 2,
+    "partner": "Silent Falcons",
+    "kind": "peer",
+    "group": "optional",
+    "crate": "w2_peer_silent_falcons",
+    "file": "w2-peer-silent-falcons.wasm",
+    "sha256": "8cf4e25f6fa36bc34a482373a7e08281c98301f0fcbb051bc02df3b5bbea15b5"
+  },
+  {
+    "world": 3,
+    "partner": "Anycast Badgers",
+    "kind": "peer",
+    "group": "optional",
+    "crate": "w3_peer_anycast_badgers",
+    "file": "w3-peer-anycast-badgers.wasm",
+    "sha256": "481979d0d9597bb5993f17d288f88fbf28e6eee686c3492c9da0ad599649e5e3"
+  },
+  {
+    "world": 3,
+    "partner": "Net_doesnt_work",
+    "kind": "peer",
+    "group": "optional",
+    "crate": "w3_peer_net_doesnt_work",
+    "file": "w3-peer-net-doesnt-work.wasm",
+    "sha256": "c13a10473a5e31d5f7d560383ce3bf1d266f74fced4afecd4c0d8a7d6c394f04"
+  },
+  {
+    "world": 4,
+    "partner": "Silent Falcons",
+    "kind": "peer",
+    "group": "optional",
+    "crate": "w4_peer_silent_falcons",
+    "file": "w4-peer-silent-falcons.wasm",
+    "sha256": "a93f3545c7a12e9ef2bc22ed31f652860c3d743fc9f649dca09df4664f4ef046"
+  },
+  {
+    "world": 2,
+    "partner": "GPT 2",
+    "kind": "transit",
+    "group": "renewal",
+    "crate": "w2_transit_gpt2",
+    "file": "w2-transit-gpt-2.wasm",
+    "sha256": "481def04dd68b47e52ff02379b81b8ac40f3a6445eeb3d49396526fb095aaef5"
+  }
+]

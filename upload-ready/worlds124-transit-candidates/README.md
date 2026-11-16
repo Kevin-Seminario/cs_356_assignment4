@@ -60,6 +60,12 @@ live forecast, but this is insufficient evidence to pitch both AI conversions
 as a large World 1 gain. Prioritize renewing useful route suppliers and
 negotiate a buyer only if it gains specific new reachability and realistic
 volume supports the price.
+Repeating the baseline, GPT 1, and both-buyer trials with the submitted
+`switch.wasm` for jknetwork (instead of the kit starter) produced utilities
+of $2,929, $3,266, and $3,513. The incremental buyer economics were almost
+identical. The submitted policy does announce peer routes to transit
+customers; the remaining uncertainty is demand, signatures, and live route
+choices, not whether that export rule exists.
 
 In the same both-buyers/no-RedBull model, removing Jumbo Comets, Packet
 Lanterns, or dinnyrob19 one at a time reduced our utility by about $506,

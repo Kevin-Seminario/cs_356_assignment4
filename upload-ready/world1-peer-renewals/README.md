@@ -48,5 +48,7 @@ was only about 145-150 Mb each, far below the model's billed $400. This is
 directional evidence to *test* these three as supplier peers before asking
 them to buy transit, not proof of their live behavior. The choice remains
 per partner and depends on the full signed agreement set.
+Repeating the three conversions with the actual submitted `switch.wasm` for
+jknetwork gave essentially the same seller changes: -$493, -$493, and -$418.
 
 Source crates live under `examples/agreements/w1_peer_*/`. Rebuild and refresh the copied `.wasm` and `.rs` files if a source crate changes.

@@ -44,3 +44,27 @@ does not represent every live agreement or route, and omits RedBull's World 4
 cross-ring hardware. The modeled $400 payments hit the cap, while the real
 World 2 GPT 2 transit paid only $89.28 in Round 2. Do not add these gains
 as if all five simultaneous offers were tested together.
+
+**World 1 recheck after the renewal clarification:** None of the old World 1
+agreements will renew automatically. In a matched storm model with the old
+RedBull transit removed and all eight non-AI peer suppliers present, the
+seller's utility was $2,912 with both AI seats as free peers, $3,232 with only
+GPT 2 as a transit customer, $3,249 with only GPT 1 as a transit customer,
+and $3,496 with both as customers. These comparisons assume $400 from each
+customer. The modeled non-payment effect was therefore **-$80**, **-$63**,
+and **-$217**, respectively. The actual Round 2 bilateral traffic was just
+71.28 Mb with GPT 2 and 71.92 Mb with GPT 1; at $1/Mb, that traffic alone
+would pay about $143 combined, below the modeled $217 combined break-even.
+Future route exports could increase metered traffic, and the model is not a
+live forecast, but this is insufficient evidence to pitch both AI conversions
+as a large World 1 gain. Prioritize renewing useful route suppliers and
+negotiate a buyer only if it gains specific new reachability and realistic
+volume supports the price.
+
+In the same both-buyers/no-RedBull model, removing Jumbo Comets, Packet
+Lanterns, or dinnyrob19 one at a time reduced our utility by about $506,
+$525, or $498. Removing any one of the other five candidate suppliers reduced
+it by about $144-$159. These are marginal **one-at-a-time** model effects,
+not additive forecasts, and do not prove that all eight counterparties will
+sign new files. They show that selling transit can require free peers as
+route inventory, rather than treating every free peer as wasted revenue.

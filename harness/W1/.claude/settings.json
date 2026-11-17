@@ -1,0 +1,6 @@
+{
+  "permissions": {
+    "allow": ["Bash(python3 ../tools/na4.py:*)", "Bash(python3 ../tools/pad.py:*)"],
+    "deny": ["WebFetch(domain:cs356-fall26.cs.utexas.edu)", "Bash(curl:*)", "Bash(wget:*)"]
+  }
+}

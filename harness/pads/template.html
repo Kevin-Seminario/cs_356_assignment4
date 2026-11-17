@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>W/*W*/ Game Pad</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+code { font: 0.8rem var(--mono); background: var(--chip); padding: 1px 5px; border-radius: 4px; }
+/* Layout: the map with its views on top, the agreement list under it. Nothing to type here: the agent edits pad.json and runs pad.py build. */
+:root {
+  --bg: #f5f6f8; --panel: #ffffff; --fg: #1b1f27; --muted: #5f6675; --line: #dadee6; --chip: #eef0f4;
+  --us: #d7263d; --provider: #c77d00; --customer: #0f8f7e; --peer: #4b5bd6; --none: #b8bdc8; --ok: #1d8a4e; --gap: #c53030;
+  --display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12151b; --panel: #1a1e26; --fg: #e8eaf0; --muted: #9aa1b0; --line: #2c323e; --chip: #232835;
+  --us: #ff5468; --provider: #f0a830; --customer: #34c7b2; --peer: #8592ff; --none: #4a505d; --ok: #48c27c; --gap: #f06363; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12151b; --panel: #1a1e26; --fg: #e8eaf0; --muted: #9aa1b0; --line: #2c323e; --chip: #232835;
+  --us: #ff5468; --provider: #f0a830; --customer: #34c7b2; --peer: #8592ff; --none: #4a505d; --ok: #48c27c; --gap: #f06363; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 0.95rem/1.5 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 12px 40px; }
+.wrap { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 16px; }
+h1 { font: 700 1.4rem var(--display); margin: 0; }
+h2 { font: 700 0.72rem var(--body); letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin: 0; }
+p { margin: 0; max-width: 68ch; }
+.muted { color: var(--muted); } .small { font-size: 0.82rem; }
+section { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+ol.moves { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 2px; }
+.views { display: flex; gap: 6px; flex-wrap: wrap; }
+.views button { font: 500 0.85rem var(--body); color: var(--fg); background: var(--chip); border: 1px solid transparent; border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+.views button[aria-pressed="true"] { color: var(--panel); background: var(--fg); }
+button:focus-visible, g:focus-visible { outline: 2px solid var(--peer); outline-offset: 2px; }
+svg { width: 100%; max-width: 560px; height: auto; display: block; margin: 0 auto; }
+svg text { font-family: var(--body); fill: var(--fg); }
+.legend { display: flex; flex-wrap: wrap; gap: 3px 14px; font-size: 0.78rem; color: var(--muted); justify-content: center; }
+.legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; }
+.legend i.bar { width: 16px; height: 5px; border-radius: 2px; vertical-align: 2px; }
+#pick { min-height: 3em; border-top: 1px solid var(--line); padding-top: 8px; }
+.tablebox { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.86rem; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; }
+td.terms { font-family: var(--mono); font-size: 0.78rem; }
+tr.hit td { background: var(--chip); }
+.pill { display: inline-block; font-size: 0.72rem; font-weight: 600; padding: 1px 8px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; color: var(--muted); }
+.pill.signed, .pill.running { color: var(--ok); } .pill.hold { color: var(--peer); } .pill.declined { color: var(--gap); }
+.role { font-weight: 600; white-space: nowrap; }
+.role.customer { color: var(--customer); } .role.peer { color: var(--peer); } .role.provider { color: var(--provider); }
+details summary { cursor: pointer; color: var(--muted); font-weight: 500; width: fit-content; }
+details ul { margin: 6px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+</style>
+</head><body>
+
+<div class="wrap">
+  <header><h1 id="h-title"></h1><span class="muted small" id="h-sub"></span></header>
+
+  <section>
+    <h2>Strategy</h2>
+    <p id="edge"></p>
+    <ol class="moves" id="moves"></ol>
+  </section>
+
+  <section>
+    <h2>Map</h2>
+    <div class="views" id="views" role="group" aria-label="Map views"></div>
+    <p id="caption"></p>
+    <svg id="ring" viewBox="0 0 680 680" role="img" aria-label="Ring map of the world"></svg>
+    <div class="legend">
+      <span><i style="background:var(--customer)"></i>customer</span><span><i style="background:var(--peer)"></i>peer</span><span><i style="background:var(--provider)"></i>provider</span><span><i style="background:var(--none)"></i>no agreement</span>
+      <span><i class="bar" style="background:var(--ok)"></i>sector we reach</span><span><i class="bar" style="background:var(--provider)"></i>reach we buy</span><span><i class="bar" style="background:var(--gap)"></i>Tier-1 only</span>
+    </div>
+    <p class="small muted" id="pick">Click a team to see its agreement.</p>
+  </section>
+
+  <section>
+    <h2>Agreements <span id="count" style="text-transform:none;letter-spacing:0;font-weight:400"></span></h2>
+    <div class="tablebox"><table>
+      <thead><tr><th>Status</th><th>With</th><th>Role</th><th>Terms</th><th>Why</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <details class="small">
+    <summary>How this pad works</summary>
+    <ul>
+      <li>You don't type here. Your agent keeps this pad up to date while you talk to it in this world's chat; reload the page after it rebuilds.</li>
+      <li>Ask it to show things: "Show me what changes if we buy reach from a neighbour." "Add a view for the auction option." "Why is that sector red?"</li>
+      <li>Tell it what happened: "Rapid Otters signed." "They countered at $0.80, update the row." The plan stays yours: it writes down your choices, it doesn't make them.</li>
+      <li><b>Nothing here acts in the game.</b> A person on your team makes every bid, signature, upload, offer and message on the website.</li>
+      <li>For agents: everything on the page comes from <code>pad.json</code>. Edit it, then <code>python3 ../tools/pad.py build N</code>; don't touch this template.</li>
+    </ul>
+  </details>
+</div>
+
+<script>
+/* ====== PAD: filled from WN/pad.json by pad.py build. Edit pad.json, never this page. ======
+   strategy.moves   numbered moves; agreements point at one with `move`.
+   views            each view is one picture the agent wants the player to see.
+     roles          team name -> "customer" | "peer" | "provider"; teams left out have no agreement.
+     sectors        sector number -> "reach" | "bought" | "gap" (outer band).
+     links          long links to draw between IXPs: [fromIXP, toIXP, label].
+     teams          the world's seating, [AS, sector, name, AI?]. Set by pad.py init and refresh.
+     caption        one or two sentences saying what the picture shows. Say where numbers come from.
+   agreements       the working list: status is "to upload" | "to sign" | "sent" | "signed" | "running" | "hold" | "declined".
+   Keep the player's decisions theirs: show options as views, record what they decided in agreements. */
+const PAD = /*PAD*/;
+const TEAMS = PAD.teams;   // [AS, sector, name, AI?]
+
+/* ====== Drawing. No need to edit below. ====== */
+const $ = id => document.getElementById(id), esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const NS = "http://www.w3.org/2000/svg", C = 340;
+const pt = (r, d) => [C + r * Math.cos((d - 90) * Math.PI / 180), C + r * Math.sin((d - 90) * Math.PI / 180)];
+const el = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; };
+const ang = t => t[1] * 45 + 45 * ((t[0] - 1) % 4 + 1) / 5;
+const ROLE = { customer: "--customer", peer: "--peer", provider: "--provider" }, BAND = { reach: "--ok", bought: "--provider", gap: "--gap" };
+let view = Math.min(PAD.startView || 0, PAD.views.length - 1), picked = null;
+
+$("h-title").textContent = `World ${PAD.world} · Round ${PAD.round}`;
+$("h-sub").textContent = `${PAD.team} · cutoff ${PAD.cutoff} · updated ${PAD.updated}`;
+$("edge").textContent = PAD.strategy.edge;
+$("moves").innerHTML = PAD.strategy.moves.map(m => `<li>${esc(m)}</li>`).join("");
+$("views").innerHTML = PAD.views.map((v, i) => `<button type="button" data-v="${i}">${esc(v.name)}</button>`).join("");
+$("views").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { view = +b.dataset.v; draw(); } });
+
+function rows() {
+  const A = PAD.agreements, n = s => A.filter(a => a.status === s).length;
+  $("count").textContent = `· ${A.length} in all · ${n("signed") + n("running")} in force · ${n("to upload") + n("to sign")} waiting on us · ${n("sent")} waiting on them`;
+  $("rows").innerHTML = A.map(a => `<tr class="${picked === a.team ? "hit" : ""}"><td><span class="pill ${a.status.replace(/ .*/, "")}">${esc(a.status)}</span></td>
+    <td><b>${esc(a.team)}</b></td><td class="role ${a.role}">${a.role}</td><td class="terms">${esc(a.terms)}</td><td><span class="muted">(${a.move})</span> ${esc(a.why)}</td></tr>`).join("");
+}
+function pick(t) {
+  const v = PAD.views[view], r = v.roles[t[2]], a = PAD.agreements.find(a => a.team === t[2]);
+  picked = t[2];
+  $("pick").innerHTML = t[2] === PAD.team ? `<b>${esc(PAD.team)}</b> · sector ${t[1]} · us.`
+    : `<b>${esc(t[2])}</b>${t[3] ? " (AI)" : ""} · sector ${t[1]} · ${r ? `<span class="role ${r}">${r}</span> in this view` : "no agreement in this view"}` +
+      (a ? `<br>On the list: ${esc(a.terms)} · ${esc(a.status)} · ${esc(a.why)}` : "<br>Not on the agreement list.");
+  rows();
+}
+function draw() {
+  const v = PAD.views[view], svg = $("ring"), me = TEAMS.find(t => t[2] === PAD.team), [ux, uy] = pt(238, ang(me));
+  [...$("views").children].forEach((b, i) => b.setAttribute("aria-pressed", i === view));
+  $("caption").textContent = v.caption;
+  svg.textContent = "";
+  el("circle", { cx: C, cy: C, r: 278, fill: "none", stroke: css("--line"), "stroke-width": 2 }, svg);
+  for (let s = 0; s < 8; s++) {
+    const [x0, y0] = pt(300, s * 45 + 4), [x1, y1] = pt(300, s * 45 + 41), k = v.sectors[s];
+    el("path", { d: `M${x0},${y0} A300,300 0 0 1 ${x1},${y1}`, fill: "none", stroke: css(BAND[k] || "--none"), "stroke-width": 9, "stroke-linecap": "round" }, svg);
+    const [lx, ly] = pt(322, s * 45 + 22.5);
+    el("text", { x: lx, y: ly + 4, "text-anchor": "middle", "font-size": 13, fill: css("--muted") }, svg).textContent = "sector " + s;
+  }
+  v.links.forEach(([a, b, label], i) => {
+    const [x0, y0] = pt(278, a * 45), [x1, y1] = pt(278, b * 45), d = Math.hypot(x1 - x0, y1 - y0) || 1, k = (i % 2 ? 1 : -1) * 45;
+    const cx = ((x0 + x1) / 2) * 0.4 + C * 0.6 - (y1 - y0) / d * k, cy = ((y0 + y1) / 2) * 0.4 + C * 0.6 + (x1 - x0) / d * k;
+    el("path", { d: `M${x0},${y0} Q${cx},${cy} ${x1},${y1}`, fill: "none", stroke: css("--us"), "stroke-width": 3.5, "stroke-dasharray": /\?/.test(label) ? "4 7" : "10 6" }, svg);
+    const t = el("text", { x: 0.25 * x0 + 0.5 * cx + 0.25 * x1, y: 0.25 * y0 + 0.5 * cy + 0.25 * y1 - 8, "text-anchor": "middle", "font-size": 12, "font-weight": 600, stroke: css("--panel"), "stroke-width": 4, "paint-order": "stroke" }, svg);
+    t.textContent = label;
+  });
+  for (const t of TEAMS) { const r = v.roles[t[2]]; if (!r) continue;
+    const [x, y] = pt(238, ang(t)), far = Math.min((t[1] - me[1] + 8) % 8, (me[1] - t[1] + 8) % 8) > 1;
+    const c = far ? `${C},${C}` : `${(ux + x) / 2 * 0.7 + C * 0.3},${(uy + y) / 2 * 0.7 + C * 0.3}`;
+    el("path", { d: `M${ux},${uy} Q${c} ${x},${y}`, fill: "none", stroke: css(ROLE[r]), "stroke-width": r === "provider" ? 3 : 1.8, opacity: 0.75, "stroke-dasharray": r === "peer" ? "3 4" : "" }, svg);
+  }
+  for (let s = 0; s < 8; s++) {
+    const [ix, iy] = pt(278, s * 45);
+    el("rect", { x: ix - 15, y: iy - 11, width: 30, height: 22, rx: 5, fill: css("--panel"), stroke: css("--fg") }, svg);
+    el("text", { x: ix, y: iy + 4, "text-anchor": "middle", "font-size": 12, "font-weight": 600 }, svg).textContent = "X" + s;
+  }
+  for (const t of TEAMS) {
+    const [x, y] = pt(238, ang(t)), us = t === me, r = v.roles[t[2]];
+    const g = el("g", { tabindex: 0, role: "button", style: "cursor:pointer", "aria-label": t[2] }, svg);
+    el("circle", { cx: x, cy: y, r: us ? 14 : 10, fill: css(us ? "--us" : r ? ROLE[r] : "--none"), stroke: t[3] ? css("--fg") : "none", "stroke-width": 2.5 }, g);
+    if (r || us) { const [nx, ny] = pt(us ? 205 : 208, ang(t)); el("text", { x: nx, y: ny + 4, "text-anchor": "middle", "font-size": 10.5, "font-weight": us ? 700 : 400 }, g).textContent = t[2].length > 12 ? t[2].slice(0, 11) + "…" : t[2]; }
+    g.addEventListener("click", () => pick(t)); g.addEventListener("keydown", e => { if (e.key === "Enter") pick(t); });
+  }
+}
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
+new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+rows(); draw();
+</script>
+</body></html>

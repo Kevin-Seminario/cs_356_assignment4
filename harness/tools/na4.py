@@ -14,11 +14,24 @@ A person makes every bid, signature, upload, offer and message, by hand, on the 
 """
 import json
 import os
+import ssl
 import sys
 import urllib.error
 import urllib.request
 
 BASE = os.environ.get('NA4_URL', 'https://cs356-fall26.cs.utexas.edu').rstrip('/')
+
+
+def tls_context():
+    """Use certifi when a python.org macOS install has no default CA file."""
+    if ssl.get_default_verify_paths().cafile is None:
+        try:
+            import certifi
+        except ImportError:
+            pass
+        else:
+            return ssl.create_default_context(cafile=certifi.where())
+    return ssl.create_default_context()
 
 
 def get(path):
@@ -29,7 +42,7 @@ def get(path):
                  "terminal: export NA4_KEY='na4_...'. Never paste it into an agent's chat.")
     req = urllib.request.Request(BASE + path, headers={'Authorization': 'Bearer ' + key, 'User-Agent': 'na4.py'})
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
+        with urllib.request.urlopen(req, timeout=30, context=tls_context()) as r:
             body = r.read().decode('utf-8')
             return json.loads(body) if 'json' in r.headers.get('Content-Type', '') else body
     except urllib.error.HTTPError as e:

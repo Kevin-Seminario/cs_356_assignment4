@@ -1,5 +1,7 @@
 # Round 3 decision memo — November 16, 2026
 
+**Superseded for action:** use the newer [Round 3 execution plan](round-3-execution.md) and its [paid offer package](../../upload-ready/round3-paid-offers/README.md). The paid-transit decisions below are retained as earlier analysis; in particular, do not follow the older instruction to sign World 1 GPT 1 or World 4 Claude 1's free-peer offers immediately while their paid pilots are pending.
+
 **Decision window:** Round 3 cuts off Tuesday, November 17 at 10:00 a.m. Central. This memo uses the 9:01 p.m. November 16 Agreements screenshots, the 4:08 p.m. Worlds maps, Round 2 statements/readings, and matched local tests. The website's current signed state controls if it changes after those screenshots. A human makes every game-site click under R34.
 
 ## What this round is for

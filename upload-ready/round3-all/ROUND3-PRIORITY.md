@@ -1,6 +1,8 @@
 # Round 3 agreement shortlist — November 16
 
-**Final decision:** [Round 3 decision memo](../../docs/strategy/round-3-final-decision.md) is the current action plan and includes the storm comparison. The notes below preserve earlier evidence and may describe pending statuses that have changed.
+**Action plan updated:** [Round 3 execution plan](../../docs/strategy/round-3-execution.md) supersedes this older shortlist for paid-transit decisions. Hold the World 1 GPT 1 and World 4 Claude 1 free-peer signatures while their paid pilots are pursued, if those peer files are still unsigned.
+
+The earlier [Round 3 decision memo](../../docs/strategy/round-3-final-decision.md) includes the storm comparison. The notes below preserve earlier evidence and may describe pending statuses that have changed.
 
 ## 9:01 p.m. Agreements-page review (supersedes the earlier pending-status notes below)
 

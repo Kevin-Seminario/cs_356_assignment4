@@ -1,0 +1,46 @@
+[
+  {
+    "file": "w1-gpt1.wasm",
+    "source": "w1-gpt1.rs",
+    "world": 1,
+    "buyer": "GPT 1",
+    "seller": "jknetwork",
+    "price_per_Mb": 0.8,
+    "round_cap_dollars": 200,
+    "term_rounds": 1,
+    "sha256": "75140c6a643c045a1456acddf71360f048cc5db23930ec39e630f4e6f91fe2bd"
+  },
+  {
+    "file": "w2-lossless.wasm",
+    "source": "w2-lossless.rs",
+    "world": 2,
+    "buyer": "Lossless Pilots",
+    "seller": "jknetwork",
+    "price_per_Mb": 0.6,
+    "round_cap_dollars": 200,
+    "term_rounds": 1,
+    "sha256": "8b51a4a5a8e00e2d24a5417dc9ac77ceca26915635e80b732008f851824213ed"
+  },
+  {
+    "file": "w3-claude2.wasm",
+    "source": "w3-claude2.rs",
+    "world": 3,
+    "buyer": "Claude 2",
+    "seller": "jknetwork",
+    "price_per_Mb": 0.8,
+    "round_cap_dollars": 200,
+    "term_rounds": 1,
+    "sha256": "f25a4357ba21c08136bef30db947ea1039f8234196ab207001b381c0d5fc35e0"
+  },
+  {
+    "file": "w4-claude1.wasm",
+    "source": "w4-claude1.rs",
+    "world": 4,
+    "buyer": "Claude 1",
+    "seller": "jknetwork",
+    "price_per_Mb": 0.8,
+    "round_cap_dollars": 200,
+    "term_rounds": 1,
+    "sha256": "1075ead8b85cfff428aa4969ceae5c70e926bef269042a99a807aef45c4a5583"
+  }
+]

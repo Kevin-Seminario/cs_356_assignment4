@@ -42,5 +42,27 @@
     "round_cap_dollars": 200,
     "term_rounds": 1,
     "sha256": "1075ead8b85cfff428aa4969ceae5c70e926bef269042a99a807aef45c4a5583"
+  },
+  {
+    "file": "w2-silent.wasm",
+    "source": "w2-silent.rs",
+    "world": 2,
+    "buyer": "Silent Falcons",
+    "seller": "jknetwork",
+    "price_per_Mb": 0.8,
+    "round_cap_dollars": 200,
+    "term_rounds": 1,
+    "sha256": "fb8ca8955fd4281252ce47bf211842efe2e690c9624fd39011576e113dbae9f2"
+  },
+  {
+    "file": "w3-anycast.wasm",
+    "source": "w3-anycast.rs",
+    "world": 3,
+    "buyer": "Anycast Badgers",
+    "seller": "jknetwork",
+    "price_per_Mb": 0.8,
+    "round_cap_dollars": 200,
+    "term_rounds": 1,
+    "sha256": "b664a531f983e46912f4c79c76dde6a270c6b6463d083c547273b7de6184f6c9"
   }
 ]

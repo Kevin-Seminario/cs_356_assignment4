@@ -1,0 +1,32 @@
+# Round 3 decision memo — November 16, 2026
+
+**Decision window:** Round 3 cuts off Tuesday, November 17 at 10:00 a.m. Central. This memo uses the 9:01 p.m. November 16 Agreements screenshots, the 4:08 p.m. Worlds maps, Round 2 statements/readings, and matched local tests. The website's current signed state controls if it changes after those screenshots. A human makes every game-site click under R34.
+
+## What this round is for
+
+Round 3 is primarily a route-retention and selective-route-gain round. The screenshots say **zero old-form renewals** in all four worlds: 17 World 1, 10 World 2, 8 World 3, and 14 World 4 agreements end at the cutoff. A route disappears if a replacement merely remains proposed. Restoring peers protects the roughly $1,700–$2,266 utility already earned in each Round 2 world; it is **not** a large new-profit strategy. The strongest identified new-route opportunity is World 3 Net_doesnt_work. Auction 2 content caches start only in Round 4.
+
+## Sign now, after checking the exact file and payment preview
+
+- **World 1:** the seven zero-payment peer offers: dinnyrob19 **526**, bevo_baddies **323**, Jumbo Comets **287**, RedBull **262**, Packet Lanterns **254**, GPT 2 **85**, GPT 1 **48**. This restores direct routes. RedBull free peering replaces the prior paid transit relationship; a matched local test favored that change by $36 without a crossing failure and $104 with one. These signed peers are defensive, not a claim of major new profit.
+- **World 2:** Bmobile **580**, 123455 **435**, Lucky Herons **200**, if each is truly a zero-payment peer. 123455 advertised far-side routes under the earlier free peer. Verify that the already-proven **GPT 2 transit sale** is signed for Round 3; it earned us $89.28 in the live Round 2 statement. Do not replace it with a free GPT 2 peer or create duplicate settlement.
+- **World 4:** 123455 **510**, Toyotathon **378**, Packet Lanterns **269**, Claude 1 **147**, GPT 1 **95**, if each is truly a zero-payment peer.
+
+## Do not sign, and one deliberate hold
+
+- **World 4 dinnyrob19 paid transit purchase 564:** decline. It charges us $1.20 per Mb for traffic in both directions, including direct traffic; no refund; $2,000 cap. The site's past-reading preview shows about **$89.76 paid by us**. No additional useful destination has been demonstrated. Request a zero-payment peer instead. Do not equate a distant hardware link with a profitable provider route.
+- **World 1 joint shared-cache bid 309:** hold for a separate Auction 2 decision. It appears to ask four teams for 15 credits each. The full file, winning threshold, owner/IXP, and recurring payment rule have not been established from the screenshot. A winning joint-bid agreement runs to season end and cannot be declined; its hardware cannot help Round 3. Auction 2 closes Wednesday, November 18 at 8:00 p.m. Central, so do not make this a rushed Round 3 signature.
+- **World 3 Claude 2 peer 167:** do not sign immediately. Our one-round paid-transit sale **234** is still waiting for Claude 2. Their incoming peer lasts **three rounds, R3–R5**, and early termination needs mutual cancellation. Ask Claude 2 to sign 234 or issue a one-round free peer. Set an internal decision time before the cutoff (for example, 8:30 a.m. Central). If no paid or shorter peer is mutually signed then, sign free peer 167 for actual direct reachability; the matched model estimated +$121.60 over no direct agreement. If they sign paid transit first, leave 167 unsigned. Never run overlapping free-peer and transit payments for the same service merely to collect money.
+
+## Send/follow up in this order; verify both signatures
+
+1. **World 3 Net_doesnt_work:** offer `upload-ready/round3-all/w3-peer-net-doesnt-work.wasm` if there is no signed or pending equivalent. This was the largest modeled missing-neighbor gain, **+$578.33** utility, including Calls improvement. It is a matched practice result, not a live forecast. Then offer `w3-peer-anycast-badgers.wasm` if still unconnected (modeled +$118.91).
+2. **Preserve valuable routes with no visible incoming replacement.** World 3: Lucky Comets (cross-ring routes), Stray Otters, JalebiStreet, Network Champions, spatulameow, networkarena, fastnetworkteam. World 4: RedBull (cross-ring routes) and networkarena first; then check Rapid Otters, Lossless Pilots, Anycast Badgers, dinnyrob19 for genuine gaps. World 2: Lucky Comets first; then check Claude 2, network, fastnetworkteam, Rapid Otters. World 1: check Lucky Comets, Network Champions, spatulameow, fastnetworkteam. Prebuilt zero-payment peer files are in `upload-ready/round3-all/`; upload only when no mutually signed or already pending replacement exists.
+3. **Follow up existing outgoing offers:** World 2 and World 4 Silent Falcons peers are already waiting for the other side. Do not duplicate. The matched W2 model estimated +$133 for Silent Falcons and +$135 for still-missing Lossless Pilots; offer the latter if unconnected. The W4 Silent Falcons model estimated +$116.
+4. **Before 10:00 a.m.:** on each world check the *signed/starts Round 3* list, not merely the uploaded/pending list. Record missing peers and the exact route/cost consequence. Pending offers will not open links. Recheck GPT 2 W2 and resolve Claude 2 W3.
+
+## Switch and hardware decision
+
+Keep the currently submitted switch for Round 3 unless a newer candidate wins a controlled comparison and passes the site dry run. On the published sample storm applied to the same World 1-like free-RedBull practice world, AS 23's current `switch.wasm` earned **$3,036.88**, the selective failover candidate **$3,026.51**, and the broader failover candidate **$2,888.03**. Calls on-time traffic was 26.0 Mb in all three; the broad candidate added $217.56 in Tier-1 fee for only $68.70 more delivered value. All had zero stopped programs. This is one approximation, not the live Round 3 world, but it does not support a last-minute switch upload. The site's earlier landslide dry run also showed the selective candidate $2.42 below the current switch.
+
+Do not buy paid transit solely because the seller owns a cross-ring link. In the controlled bridge pilot, crossing-only resale gains were small and could turn negative after bilateral charges. For a future purchase, require a specific additional advertised destination and compare its incremental on-time value and avoided Tier-1 fee against **all** billed bilateral traffic. Separate the Round 4 Web/Video cache auction from this Round 3 cutoff.

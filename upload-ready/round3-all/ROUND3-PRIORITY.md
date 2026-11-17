@@ -1,5 +1,7 @@
 # Round 3 agreement shortlist — November 16
 
+**Final decision:** [Round 3 decision memo](../../docs/strategy/round-3-final-decision.md) is the current action plan and includes the storm comparison. The notes below preserve earlier evidence and may describe pending statuses that have changed.
+
 ## 9:01 p.m. Agreements-page review (supersedes the earlier pending-status notes below)
 
 The four screenshots show every **incoming offer in the visible To Review lists**: 8 in World 1, 3 in World 2, 1 in World 3, and 6 in World 4. They do not show every contract in the scrolled In Force lists. Confirm exact terms in each file before signing, especially the joint bid and paid transit. No website action was taken by the agent.

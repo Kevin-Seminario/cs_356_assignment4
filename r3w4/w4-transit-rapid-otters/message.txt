@@ -1,0 +1,5 @@
+Hey Rapid Otters — this is jknetwork in W4. Thanks for signing our free peer. We can also sell you transit to two of our peers in sector 6. The routes we can offer while advertised are Packet Lanterns (10.26.0.0/17 and 10.26.128.0/17) and Lossless Pilots (10.28.0.0/17 and 10.28.128.0/17).
+
+There’s no fixed fee. The first 80 Mb per round is free, then you pay $1/Mb up to $100 total per round. The meter combines both directions and counts existing direct traffic as well as transit, even if a packet arrives late or is lost after crossing. We exchanged 75.52 Mb in R2, so that volume would have cost you $0.
+
+If you currently use Tier‑1 for either destination, every 10 billable Mb you move onto our route costs $10 instead of $15. Would that help you? It’s a one-round trial that renews one round at a time unless either of us declines.

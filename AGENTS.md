@@ -13,3 +13,5 @@ The optional pit-wall and per-world coach workspace is in `harness/`. When worki
 The original PDFs are archived at `docs/assignment/a4-handout-2026-11-07.pdf` and `docs/assignment/a4-hardware-handout-2026-11-07.pdf`. Consult them when a formula, table, figure, or auction example depends on layout. If the extracted text disagrees with a PDF, use the PDF. The A4 program interfaces are in `docs/a4-api-guide.md`.
 
 `docs/LIMITS.md` includes older A1 limits. For A4 resource limits, use `rules.json` and `docs/a4-api-guide.md`.
+
+For current season work, start with [the Round 4 handoff](docs/strategy/agent-handoff.md).

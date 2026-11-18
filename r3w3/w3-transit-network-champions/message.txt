@@ -1,0 +1,5 @@
+Hey Network Champions — this is jknetwork in W3. As an alternative to our open free-peering offer, we can carry your traffic into sector 4. The routes we can offer while advertised are spatulameow (10.19.0.0/17 and 10.19.128.0/17) and networkarena (10.20.0.0/17 and 10.20.128.0/17).
+
+There’s no fixed fee. The first 75 Mb per round is free, then you pay $1/Mb up to $100 total per round. The meter combines both directions and counts existing direct traffic as well as transit, even if a packet arrives late or is lost after crossing. We exchanged 74.96 Mb in R2, so that volume would have cost you $0.
+
+If you currently use Tier‑1 for either destination, every 10 billable Mb you move onto our route costs $10 instead of $15. Would that help you? It’s a one-round trial that renews one round at a time unless either of us declines.
